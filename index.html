@@ -567,9 +567,9 @@ function go(view){
 }
 
 // ═══ AI 智能打分（明鉴 v1.8.0 · 通过后端 API 服务） ═══
-// 后端地址：线上部署在 Vercel（免费）。本地开发若需联调，可在控制台执行
+// 后端地址：Vercel 生产域名（固定）。本地开发若需联调，可在控制台执行
 // localStorage.setItem('mj_api_base','http://localhost:8000') 临时切换。
-const API_BASE = localStorage.getItem('mj_api_base') || 'https://ai-review-backend-4j3em5odl-sansanjiujiu39.vercel.app';
+const API_BASE = localStorage.getItem('mj_api_base') || 'https://ai-review-backend-pearl.vercel.app';
 
 // 10 个赛道的 key（顺序与 tracks 数组一致，提交给后端）
 const TRACK_KEYS = [
