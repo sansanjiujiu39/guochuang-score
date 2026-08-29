@@ -766,102 +766,165 @@
     <div class="page-banner-in">
       <div class="crumbs"><a href="javascript:go('home')">首页</a> &gt; 关于大赛 &gt; 参赛指南</div>
       <h1>参赛指南</h1>
-      <div class="meta">校内参赛信息 · 各大竞赛官方参赛指南</div>
+      <div class="meta">请选择你想了解的信息板块</div>
+    </div>
+  </div>
+  <div style="max-width:860px;margin:0 auto;padding:40px 20px 60px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div onclick="go('apply-school')" style="cursor:pointer;border:2px solid var(--border);border-radius:14px;padding:34px 28px;text-align:center;transition:all .2s;background:#fff" onmouseover="this.style.borderColor='#1c56b8';this.style.boxShadow='0 6px 20px rgba(20,70,160,.12)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+        <div style="font-size:46px;line-height:1;margin-bottom:16px">🏫</div>
+        <div style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:8px">校内参赛信息</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:16px">中山大学校内赛事组织、报名流程与资源支持</div>
+        <div style="display:inline-block;background:#e6effc;color:#1c56b8;border-radius:20px;padding:6px 18px;font-size:13px;font-weight:600">进入查看 →</div>
+      </div>
+      <div onclick="go('apply-official')" style="cursor:pointer;border:2px solid var(--border);border-radius:14px;padding:34px 28px;text-align:center;transition:all .2s;background:#fff" onmouseover="this.style.borderColor='#b7791f';this.style.boxShadow='0 6px 20px rgba(183,121,31,.12)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+        <div style="font-size:46px;line-height:1;margin-bottom:16px">🌐</div>
+        <div style="font-size:19px;font-weight:700;color:var(--navy);margin-bottom:8px">官方网站参赛信息</div>
+        <div style="font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:16px">三大核心赛事的官方参赛流程与报名指引</div>
+        <div style="display:inline-block;background:#faf0dd;color:#b7791f;border-radius:20px;padding:6px 18px;font-size:13px;font-weight:600">进入查看 →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 参赛指南 · 校内信息 ════════ -->
+<div class="page" id="page-apply-school">
+  <div class="page-banner">
+    <div class="page-banner-in">
+      <div class="crumbs"><a href="javascript:go('home')">首页</a> &gt; <a href="javascript:go('apply')">参赛指南</a> &gt; 校内参赛信息</div>
+      <h1>校内参赛信息</h1>
+      <div class="meta">中山大学校内赛事组织、报名流程与资源支持</div>
+    </div>
+  </div>
+  <div style="max-width:860px;margin:0 auto;padding:40px 20px 60px">
+    <div class="card" style="text-align:center;padding:60px 30px">
+      <div style="font-size:52px;line-height:1;margin-bottom:16px">🏗️</div>
+      <h4 style="font-size:17px;color:var(--navy);margin-bottom:10px">内容建设中</h4>
+      <p style="font-size:13.5px;color:var(--text-2);line-height:1.8;margin-bottom:6px">本板块正在整理中山大学校内参赛信息，即将上线。</p>
+      <p style="font-size:12.5px;color:var(--text-3)">敬请期待 · 若你有校内信息需求，可通过 <a href="javascript:go('feedback')" style="color:var(--blue)">意见反馈</a> 联系我们</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 参赛指南 · 官方网站信息 ════════ -->
+<div class="page" id="page-apply-official">
+  <div class="page-banner">
+    <div class="page-banner-in">
+      <div class="crumbs"><a href="javascript:go('home')">首页</a> &gt; <a href="javascript:go('apply')">参赛指南</a> &gt; 官方网站参赛信息</div>
+      <h1>官方网站参赛信息</h1>
+      <div class="meta">三大核心赛事的官方参赛流程（依据各大赛官网公开信息整理）</div>
     </div>
   </div>
   <div style="max-width:920px;margin:0 auto;padding:26px 20px 60px">
 
-    <!-- ═══ 板块一：中山大学校内参赛信息 ═══ -->
-    <div style="display:flex;align-items:center;gap:10px;margin:0 0 14px">
-      <div style="width:4px;height:22px;background:var(--blue,#1c56b8);border-radius:2px"></div>
-      <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin:0">板块一 · 中山大学校内参赛信息</h2>
+    <!-- 创新大赛 -->
+    <div class="card" style="margin-bottom:20px;overflow:hidden;padding:0">
+      <div style="padding:18px 24px;background:linear-gradient(135deg,#a1271f,#d8423a);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <span style="font-size:17px;font-weight:700">🏆 中国国际大学生创新大赛 · 参赛流程</span>
+        <a href="https://cy.ncss.cn/" target="_blank" rel="noopener" style="color:#fff;font-size:12.5px;text-decoration:underline">cy.ncss.cn ↗</a>
+      </div>
+      <div style="padding:22px 24px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#e6effc;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#1c56b8;margin-bottom:4px">① 报名</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">登录 cy.ncss.cn 或官方公众号，团队注册报名（每年 4-8 月）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#e6effc;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#1c56b8;margin-bottom:4px">② 校级初赛</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">学校组织评审/路演，择优推荐（4-8 月，各校自定）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#e6effc;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#1c56b8;margin-bottom:4px">③ 省级复赛</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">省级组委会组织评审/路演，遴选国赛项目（9-10 月）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#faf0dd;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#b7791f;margin-bottom:4px">④ 全国总决赛</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">按配额择优推荐项目参加现场赛（10-11 月）</div>
+          </div>
+        </div>
+        <ul class="ai-list" style="font-size:13px">
+          <li><b>赛制</b>：校级初赛 → 省级复赛 → 总决赛三级赛制；每年 4520 个项目入围总决赛（以当年通知为准）。</li>
+          <li><b>组别</b>：高教主赛道（本科/研究生 × 创意/创业）、红旅赛道（公益/创意/创业）、职教赛道、产业命题赛道、萌芽赛道。</li>
+          <li><b>材料</b>：报名成功截图、竞赛申报表、项目 PPT、商业计划书及佐证材料（以当年要求为准）。</li>
+          <li><b>官方手册</b>：官网"资料下载"板块提供学生操作手册；公众号"全国大学生创业服务网"可咨询。</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="card" style="margin-bottom:16px">
-      <h4>校内赛事组织与通知渠道</h4>
-      <ul class="ai-list">
-        <li><b>赛事通知发布</b>：校内选拔通知一般在赛事启动期（通常每年 3-6 月）通过学校官方网站、教务处/团委公告、院系教务群等渠道发布；</li>
-        <li><b>校内主管部门</b>：创新创业类赛事通常由学校教务处（实践教学管理）、校团委或创新创业学院统筹组织；</li>
-        <li><b>关注渠道建议</b>：留意校内信息门户的"竞赛通知"栏目、学院教务员通知，以及学校创新创业类学生组织的公众号；</li>
-        <li>请以学校当年发布的正式通知为准，本页信息为通用流程说明。</li>
-      </ul>
+    <!-- 挑战杯 -->
+    <div class="card" style="margin-bottom:20px;overflow:hidden;padding:0">
+      <div style="padding:18px 24px;background:linear-gradient(135deg,#b7791f,#e0a83c);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <span style="font-size:17px;font-weight:700">🏅 挑战杯系列 · 参赛流程</span>
+        <a href="https://tiaozhanbei.net/" target="_blank" rel="noopener" style="color:#fff;font-size:12.5px;text-decoration:underline">tiaozhanbei.net ↗</a>
+      </div>
+      <div style="padding:22px 24px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#faf0dd;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#b7791f;margin-bottom:4px">① 院级选拔</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">学院启动会、组队、院内评审（前一年底至当年初）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#faf0dd;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#b7791f;margin-bottom:4px">② 校级评审</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">校赛报名→文本初评→答辩复评（当年 3-5 月）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#faf0dd;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#b7791f;margin-bottom:4px">③ 省级复赛</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">推报省赛，省级终审遴选国赛作品（5-6 月）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#faf0dd;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#b7791f;margin-bottom:4px">④ 全国终审</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">申报系统提交→审核→国赛初审/终审（6-10 月）</div>
+          </div>
+        </div>
+        <ul class="ai-list" style="font-size:13px">
+          <li><b>线上申报流程</b>：学生注册 → 加入比赛 → 申报作品 → 提交 → 校级审核 → 省级审核 → 推送国赛 → 组委会审核（官网申报系统）。</li>
+          <li><b>评审侧重</b>：科学性、先进性、现实意义、学生参与度；科技发明看技术创新与转化前景，社科作品看结合度与前瞻性。</li>
+          <li><b>注意</b>："大挑"（课外学术科技作品）与"小挑"（创业计划）隔年交替，申报书格式严格，须经学校统一申报。</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="card" style="margin-bottom:16px">
-      <h4>校内参赛流程（通用参考）</h4>
-      <table class="rubric">
-        <thead><tr><th style="width:14%">阶段</th><th style="width:30%">事项</th><th>说明</th></tr></thead>
-        <tbody>
-          <tr><td class="score">①</td><td>组建团队</td><td>跨专业组队更佳：技术 + 商业 + 展示（建议 5-8 人，含负责人）</td></tr>
-          <tr><td class="score">②</td><td>校内报名</td><td>按学校通知要求提交报名表与项目材料（项目书/PPT/视频等）</td></tr>
-          <tr><td class="score">③</td><td>校内初评</td><td>学校组织专家评审或路演，选拔推荐参加省级比赛</td></tr>
-          <tr><td class="score">④</td><td>省赛/国赛</td><td>获推荐后按大赛官网要求完成报名、材料提交与后续赛程</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card" style="margin-bottom:16px">
-      <h4>校内资源与支持（请以学校最新公布为准）</h4>
-      <ul class="ai-list">
-        <li><b>项目打磨</b>：可利用本平台 AI 自评系统在提交前多轮打磨计划书与 PPT；</li>
-        <li><b>指导支持</b>：可联系指导教师、院系或学校双创部门了解导师对接、经费支持与场地资源；</li>
-        <li><b>往届材料</b>：部分院系/学生组织会整理往届获奖作品与经验分享，可在校内渠道获取。</li>
-      </ul>
-      <p style="font-size:12.5px;color:var(--text-3);margin-top:8px">⚠️ 校内具体流程、时间节点与联系部门请以中山大学当年官方通知为准，此处为通用框架，如有出入恕不另行通知。</p>
-    </div>
-
-    <!-- ═══ 板块二：各大竞赛官方参赛指南 ═══ -->
-    <div style="display:flex;align-items:center;gap:10px;margin:28px 0 14px">
-      <div style="width:4px;height:22px;background:#b7791f;border-radius:2px"></div>
-      <h2 style="font-size:19px;font-weight:700;color:var(--navy);margin:0">板块二 · 各大竞赛官方参赛指南</h2>
-    </div>
-
-    <div class="card" style="margin-bottom:16px">
-      <h4>三大核心赛事官方指南一览</h4>
-      <table class="rubric">
-        <thead><tr><th style="width:24%">赛事</th><th style="width:20%">官方网站</th><th style="width:30%">报名与参赛流程</th><th>注意事项</th></tr></thead>
-        <tbody>
-          <tr>
-            <td class="score">中国国际大学生创新大赛</td>
-            <td><a href="https://cy.ncss.cn/" target="_blank" rel="noopener" style="color:var(--blue)">cy.ncss.cn</a></td>
-            <td>校赛报名（校内选拔）→ 省赛推荐 → 全国总决赛；参赛团队在全国大学生创业服务网完成注册报名</td>
-            <td>关注官网"通知公告"获取当年章程、评审规则与赛道要求；各赛道材料要求不同</td>
-          </tr>
-          <tr>
-            <td class="score">挑战杯系列（大挑/小挑）</td>
-            <td><a href="https://tiaozhanbei.net/" target="_blank" rel="noopener" style="color:var(--blue)">tiaozhanbei.net</a></td>
-            <td>校级选拔 → 省级复赛 → 全国终审；作品须经学校统一申报</td>
-            <td>大挑（学术科技作品）与小挑（创业计划）隔年交替，注意当年举办的是哪一类；申报书格式严格</td>
-          </tr>
-          <tr>
-            <td class="score">创青春 · 中国青年创新创业大赛</td>
-            <td><a href="https://cqc.yeeol.com/" target="_blank" rel="noopener" style="color:var(--blue)">cqc.yeeol.com</a></td>
-            <td>在官网/官方平台注册报名 → 分赛道评审 → 半决赛/决赛；支持个人或团队报名</td>
-            <td>面向 18-45 岁青年；注意各赛道（科技创新/乡村振兴/数字经济/社会企业）的申报条件差异</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card" style="margin-bottom:16px">
-      <h4>官方指南重点提示（通用）</h4>
-      <ul class="ai-list">
-        <li><b>以官网为唯一权威信源</b>：报名系统、章程、评审规则、赛程通知均以大赛官网/官方平台发布为准；</li>
-        <li><b>注意时间节点</b>：各赛事报名与材料提交有严格截止时间，建议提前 1-2 个月准备材料；</li>
-        <li><b>材料与规则匹配</b>：按当年官方评审规则撰写计划书/PPT，可先用本平台按对应赛道自评打磨；</li>
-        <li><b>防诈骗提醒</b>：大赛报名一般免费或按官方通知缴纳，警惕任何"包获奖""代报名"等收费中介。</li>
-      </ul>
+    <!-- 创青春 -->
+    <div class="card" style="margin-bottom:20px;overflow:hidden;padding:0">
+      <div style="padding:18px 24px;background:linear-gradient(135deg,#0e5aa7,#1c7ed6);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <span style="font-size:17px;font-weight:700">🚀 创青春 · 中国青年创新创业大赛 · 参赛流程</span>
+        <a href="https://cqc.yeeol.com/" target="_blank" rel="noopener" style="color:#fff;font-size:12.5px;text-decoration:underline">cqc.yeeol.com ↗</a>
+      </div>
+      <div style="padding:22px 24px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#e6f1fb;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#0e5aa7;margin-bottom:4px">① 线上报名</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">登录 cqc.yeeol.com 注册报名，提交申报材料（每年约 6-8 月）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#e6f1fb;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#0e5aa7;margin-bottom:4px">② 推荐报送</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">填写项目推荐表，经市级团委/学校汇总审核上报</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#e6f1fb;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#0e5aa7;margin-bottom:4px">③ 省级/区域赛</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">按赛道评审（8 月下旬启动，以当年通知为准）</div>
+          </div>
+          <div style="flex:1;min-width:110px;text-align:center;padding:12px 8px;background:#e6f1fb;border-radius:10px">
+            <div style="font-size:13px;font-weight:700;color:#0e5aa7;margin-bottom:4px">④ 全国赛</div>
+            <div style="font-size:11.5px;color:var(--text-2);line-height:1.5">专项赛决赛、交流对接活动（下半年）</div>
+          </div>
+        </div>
+        <ul class="ai-list" style="font-size:13px">
+          <li><b>参赛条件</b>：40 周岁（含）以下中国公民；以个人或团队参赛，团队总人数不多于 5 人。</li>
+          <li><b>专项赛</b>：科技创新专项赛（关键核心技术 / 模式及应用创新赛道）；消费新业态新模式新场景专项赛。</li>
+          <li><b>组别</b>：科技创新赛设国企创新组/初创组/成长组（按注册时间），消费赛设创新组/创业组。</li>
+          <li><b>材料</b>：已注册主体须交营业执照与项目介绍；未注册须交商业计划书，可附专利、奖项等佐证。</li>
+        </ul>
+      </div>
     </div>
 
     <div class="card">
-      <h4>还想了解什么？</h4>
-      <p style="font-size:13.5px;color:var(--text-2);line-height:1.8">
-        更多赛事详情可查看
-        <a href="javascript:go('competitions')" style="color:var(--blue)">大赛介绍</a>
-        页的三大赛事简介；校内具体安排请以中山大学官方通知为准。
-        如有疑问可到 <a href="javascript:go('forum')" style="color:var(--blue)">论坛社区</a> 与同学们交流，
-        或通过 <a href="javascript:go('feedback')" style="color:var(--blue)">意见反馈</a> 联系我们。
-      </p>
+      <h4>官方流程通用提醒</h4>
+      <ul class="ai-list" style="font-size:13.5px">
+        <li>以上时间节点为近年一般安排，<b>每年具体时间以当年官方通知为准</b>，建议提前 1-2 个月关注官网；</li>
+        <li>报名系统开放后尽早填报，材料提交后部分系统截止后不可修改；</li>
+        <li>大赛报名一般不收费，警惕任何"包获奖""代报名"等收费中介。</li>
+      </ul>
     </div>
 
   </div>
