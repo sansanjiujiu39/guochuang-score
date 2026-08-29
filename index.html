@@ -1984,11 +1984,13 @@ function showForumDetail(i){
 }
 
 // 论坛 tab 切换（数据驱动过滤）
+// tab 显示名 → 数据分类 key 映射（"校友组队" 对应数据里的 "组队"）
+const CAT_MAP = {'全部':'全部','校友组队':'组队','经验分享':'经验','答疑解惑':'答疑'};
 document.querySelectorAll('.f-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.f-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    renderForum(tab.textContent.trim());
+    renderForum(CAT_MAP[tab.textContent.trim()] || '全部');
   });
 });
 // 侧边栏板块导航点击也可切换
