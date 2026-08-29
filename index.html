@@ -71,7 +71,7 @@
   .sec-wrap{position:relative}
 
   /* ── 快捷入口 ── */
-  .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto}
+  .quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:720px;margin:0 auto}
   .quick-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:26px 22px;text-align:center;transition:.2s;cursor:pointer;position:relative;overflow:hidden}
   .quick-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transition:.25s}
   .quick-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 10px 24px rgba(20,70,160,.12)}
@@ -102,8 +102,6 @@
   .track-card .go{position:absolute;right:18px;bottom:18px;font-size:13px;color:var(--blue);font-weight:600;opacity:0;transition:.2s}
   .track-card:hover .go{opacity:1}
 
-  /* ── 大赛动态 ── */
-  .news-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:24px}
   .panel{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(20,70,160,.05)}
   .panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--blue-light)}
   .panel-head h3{font-size:16px;font-weight:700;color:var(--blue)}
@@ -287,7 +285,6 @@
       <a href="javascript:go('home')" class="active" id="nav-home">首页</a>
       <a href="javascript:go('ai')" id="nav-ai">智能打分</a>
       <a href="javascript:go('forum')" id="nav-forum">论坛社区</a>
-      <a href="javascript:go('mine')" id="nav-mine">我的</a>
     </div>
     <div class="nav-right"><a class="btn-about" href="https://cy.ncss.cn/" target="_blank" rel="noopener">关于大赛 →</a></div>
   </div>
@@ -318,38 +315,9 @@
     <div class="quick-grid">
       <div class="quick-card" onclick="go('ai')"><div class="ic">🤖</div><h3>AI 智能打分</h3><p>上传计划书，AI 自动评分+点评</p></div>
       <div class="quick-card" onclick="go('forum')"><div class="ic">👥</div><h3>校友组队</h3><p>发帖找队友、找项目、共享经验</p></div>
-      <div class="quick-card" onclick="go('mine')"><div class="ic">📊</div><h3>我的报告</h3><p>查看自评历史，导出评分报告</p></div>
     </div>
   </div>
 
-
-  <!-- 大赛动态 -->
-  <div class="section">
-    <div class="sec-wrap">
-      <div class="sec-head"><h2>大赛动态</h2><span class="line"></span></div>
-      <a class="sec-more" href="#">查看更多 +</a>
-      <div class="news-grid">
-        <div class="panel">
-          <div class="panel-head"><h3>通知公告</h3><a href="https://cy.ncss.cn/information/dsdt?typeCode=CYDS_2TH_DSDT" target="_blank" rel="noopener">更多 +</a></div>
-          <ul class="news-list">
-            <li><div class="date"><b>19</b><span>2026.08</span></div><div class="nt"><a href="https://cy.ncss.cn/information/2c93f4c6a00f063201a0181a04c1002d" target="_blank" rel="noopener">关于做好中国国际大学生创新大赛（2026）国际项目参赛的通知</a></div></li>
-            <li><div class="date"><b>19</b><span>2026.08</span></div><div class="nt"><a href="https://cy.ncss.cn/information/2c93f4c6a00f063201a01815a08e0022" target="_blank" rel="noopener">关于公布中国国际大学生创新大赛（2026）评审规则通知</a></div></li>
-            <li><div class="date"><b>10</b><span>2026.08</span></div><div class="nt"><a href="https://cy.ncss.cn/information/2c93f4c69fad2847019fe99102d60002" target="_blank" rel="noopener">世界大学生创新指数调查（2026）</a></div></li>
-            <li><div class="date"><b>24</b><span>2026.07</span></div><div class="nt"><a href="https://cy.ncss.cn/information/2c93f4c69dfca46a019f91aa6535008a" target="_blank" rel="noopener">教育部关于举办中国国际大学生创新大赛（2026）的通知</a></div></li>
-          </ul>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><h3>经验分享</h3><a href="#">更多 +</a></div>
-          <ul class="news-list">
-            <li><div class="nt">学长分享：从校赛到国赛金奖，我们踩过的 5 个坑</div></li>
-            <li><div class="nt">评审专家谈：商业计划书最容易被扣分的环节</div></li>
-            <li><div class="nt">公益组如何写好「社会价值」这一维度</div></li>
-            <li><div class="nt">萌芽赛道选题：低年级学生的创意怎么落地</div></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- 规则说明 -->
   <div class="tracks-bg">
@@ -1236,17 +1204,6 @@
   </div>
 </div>
 
-<!-- ════════ 我的 ════════ -->
-<div class="page" id="page-mine">
-  <div class="page-banner">
-    <div class="page-banner-in">
-      <div class="crumbs"><a href="javascript:go('home')">首页</a> &gt; 我的</div>
-      <h1>个人中心</h1>
-      <div class="meta">自评记录 · 评分报告 · 我的收藏</div>
-    </div>
-  </div>
-</div>
-
 <!-- ════════ Footer ════════ -->
 <footer>
   <div class="footer-in">
@@ -1281,7 +1238,7 @@ function go(view){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+view).classList.add('active');
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  const navMap={home:'nav-home',ai:'nav-ai',forum:'nav-forum',mine:'nav-mine',report:'nav-ai',guide:'nav-home',feedback:'nav-home',privacy:'nav-home',competitions:'nav-home',apply:'nav-home',rules:'nav-home',faq:'nav-home'};
+  const navMap={home:'nav-home',ai:'nav-ai',forum:'nav-forum',report:'nav-ai',guide:'nav-home',feedback:'nav-home',privacy:'nav-home',competitions:'nav-home',apply:'nav-home',rules:'nav-home',faq:'nav-home'};
   const navEl = document.getElementById(navMap[view]);
   if(navEl) navEl.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
