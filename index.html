@@ -199,6 +199,8 @@
   .post-list{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden}
   .post-item{display:flex;gap:14px;padding:18px 20px;border-bottom:1px solid #f0f2f7;cursor:pointer;transition:.15s}
   .post-item:hover{background:#f8fafe}
+  .sidebar-card .li{cursor:pointer}
+  .sidebar-card .li:hover{color:var(--navy)}
   .post-item:last-child{border-bottom:none}
   .post-avatar{width:42px;height:42px;border-radius:50%;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
   .post-main{flex:1;min-width:0}
@@ -1332,59 +1334,19 @@
   <div class="forum-body">
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <div style="font-size:14px;color:var(--text-2)">共 128 个帖子</div>
-        <button class="btn btn-blue">＋ 发布帖子</button>
+        <div style="font-size:14px;color:var(--text-2)" id="forum-count">加载中…</div>
+        <button class="btn btn-blue" id="forum-publish">＋ 发布帖子</button>
       </div>
-      <div class="post-list">
-        <div class="post-item">
-          <div class="post-avatar">李</div>
-          <div class="post-main">
-            <div class="post-title"><span class="post-tag">组队</span>红旅公益组寻 2 名队友，已有成熟社区养老项目</div>
-            <div class="post-excerpt">项目已运行半年，覆盖 3 个社区，现缺一名财务背景同学负责商业模式部分…</div>
-            <div class="post-meta"><span>李同学 · 商学院</span><span>2 小时前</span><span class="hot">🔥 23 回复</span></div>
-          </div>
-        </div>
-        <div class="post-item">
-          <div class="post-avatar">王</div>
-          <div class="post-main">
-            <div class="post-title"><span class="post-tag gold">经验</span>从校赛到国赛金奖，商业计划书打磨全流程复盘</div>
-            <div class="post-excerpt">重点讲怎么把「社会价值」和「商业模式」两条线讲清楚，附我们的评分变化记录…</div>
-            <div class="post-meta"><span>王学长 · 已获国赛金奖</span><span>昨天</span><span class="hot">🔥 89 回复</span></div>
-          </div>
-        </div>
-        <div class="post-item">
-          <div class="post-avatar">陈</div>
-          <div class="post-main">
-            <div class="post-title"><span class="post-tag red">答疑</span>萌芽赛道的「创新性」到底该怎么写？</div>
-            <div class="post-excerpt">低年级没有成熟产品，创新性 40 分怎么拿？求学长学姐指点…</div>
-            <div class="post-meta"><span>陈同学 · 大一</span><span>3 小时前</span><span>12 回复</span></div>
-          </div>
-        </div>
-        <div class="post-item">
-          <div class="post-avatar">刘</div>
-          <div class="post-main">
-            <div class="post-title"><span class="post-tag">资源</span>商业计划书模板 + 财务预测表格打包下载</div>
-            <div class="post-excerpt">整理了一份我们自己用过的模板，含财务三表、市场分析框架，自取…</div>
-            <div class="post-meta"><span>刘同学 · 已进入省赛</span><span>1 天前</span><span>45 下载</span></div>
-          </div>
-        </div>
-        <div class="post-item">
-          <div class="post-avatar">赵</div>
-          <div class="post-main">
-            <div class="post-title"><span class="post-tag">组队</span>主赛道创业组项目已有营收，寻技术合伙人</div>
-            <div class="post-excerpt">校园二手书平台月流水 3w，缺一名后端开发，欢迎技术大佬加入…</div>
-            <div class="post-meta"><span>赵同学 · 计算机学院</span><span>2 天前</span><span>31 回复</span></div>
-          </div>
-        </div>
+      <div class="post-list" id="forum-posts"></div>
       </div>
     </div>
     <div class="aside">
       <div class="card sidebar-card">
         <h4>板块导航</h4>
-        <div class="li"><span>👥 校友组队</span><span class="r">36 帖</span></div>
-        <div class="li"><span>💡 经验分享</span><span class="r">42 帖</span></div>
-        <div class="li"><span>❓ 答疑解惑</span><span class="r">28 帖</span></div>
-        <div class="li"><span>📦 资源下载</span><span class="r">22 帖</span></div>
+        <div class="li" data-cat="组队"><span>👥 校友组队</span><span class="r">0 帖</span></div>
+        <div class="li" data-cat="经验"><span>💡 经验分享</span><span class="r">0 帖</span></div>
+        <div class="li" data-cat="答疑"><span>❓ 答疑解惑</span><span class="r">0 帖</span></div>
+        <div class="li" data-cat="资源"><span>📦 资源下载</span><span class="r">0 帖</span></div>
       </div>
       <div class="card sidebar-card">
         <h4>热门话题</h4>
@@ -1906,13 +1868,82 @@ async function exportSheet(){
   }
 }
 
-// 论坛 tab 切换
-document.querySelectorAll('.f-tab').forEach((tab,idx)=>{
+// ═══ 论坛社区 · 示例数据（静态演示版） ═══
+const FORUM_POSTS = [
+  // ── 校友组队 ──
+  {cat:'组队', tag:'组队', tagCls:'', title:'红旅公益组寻 2 名队友（财务 + 设计），已有成熟社区养老项目', excerpt:'项目已运行半年，覆盖 3 个社区、服务老人 320 人次，现缺一名财务背景同学负责商业模式测算、一名设计同学打磨路演视觉，预计冲击省金。', author:'李同学 · 商学院', time:'2 小时前', num:'23 回复', hot:true},
+  {cat:'组队', tag:'组队', tagCls:'', title:'主赛道创业组项目已有营收，寻技术合伙人（后端开发）', excerpt:'校园二手教材平台月流水 4.6 万、已盈亏平衡，技术栈微信小程序 + Python，缺一名后端开发负责识别引擎维护，可给期权。', author:'赵同学 · 计算机学院', time:'5 小时前', num:'31 回复', hot:true},
+  {cat:'组队', tag:'组队', tagCls:'', title:'萌芽赛道低年级团队寻指导教师与 1-2 名跨专业队友', excerpt:'我们是大一团队，做乡村儿童安全教育教具，已出原型。希望找到擅长公益方向且有指导经验的同学或老师带一带，学习为主。', author:'陈同学 · 大一', time:'昨天', num:'12 回复'},
+  {cat:'组队', tag:'组队', tagCls:'', title:'高教主创意组招募算法/硬件同学，巡检机器人样机已完成', excerpt:'已完成 2 台样机、3 家机构试用，现有国家级人才指导，缺视觉算法与硬件调试同学各 1 名，欢迎实验室同学加入。', author:'吴同学 · 机器人实验室', time:'2 天前', num:'18 回复'},
+  // ── 经验分享 ──
+  {cat:'经验', tag:'经验', tagCls:'gold', title:'从校赛到国赛金奖：商业计划书打磨全流程复盘（附评分变化记录）', excerpt:'重点讲怎么把「社会价值」和「商业模式」两条线讲清楚，从 62 分改到 88 分的四次迭代记录，含评委现场提问原话。', author:'王学长 · 已获国赛金奖', time:'昨天', num:'89 回复', hot:true},
+  {cat:'经验', tag:'经验', tagCls:'gold', title:'创业组「经营四件套」怎么准备：公司 / 到账营收 / 融资 / 实名客户', excerpt:'省赛评委最看重的硬证据清单，附我们开公司、拉融资踩过的坑，以及银行流水怎么整理成附件最规范。', author:'刘学长 · 已进国赛', time:'3 天前', num:'67 回复', hot:true},
+  {cat:'经验', tag:'经验', tagCls:'gold', title:'路演答辩 5 分钟讲清项目：评委最常问的 10 个问题', excerpt:'从「你的壁垒是什么」到「凭什么你能做」，整理评委高频提问和回答框架，含答辩 PPT 每页讲稿模板。', author:'林学姐 · 省级优秀项目', time:'4 天前', num:'54 回复'},
+  {cat:'经验', tag:'经验', tagCls:'gold', title:'双轨评分时代：材料分 vs 作品水平分到底怎么理解', excerpt:'平台自评会给出两个分数，两者差值代表材料呈现的落差。分享怎么根据双轨分差定位「材料没写到位」的部分。', author:'周学姐 · 已获国银', time:'5 天前', num:'41 回复'},
+  // ── 答疑解惑 ──
+  {cat:'答疑', tag:'答疑', tagCls:'red', title:'萌芽赛道「创新性」到底该怎么写？低年级没有成熟产品', excerpt:'创新性占 40 分，但我们只有教具原型，没有数据没有专利。想请教有经验的学长学姐，这条线怎么组织材料？', author:'陈同学 · 大一', time:'3 小时前', num:'12 回复'},
+  {cat:'答疑', tag:'答疑', tagCls:'red', title:'没有营收、没有专利，会不会被压分？', excerpt:'创意组早期项目，担心因为缺硬证据直接被压到省奖档。看了规则说属于「允许短板」，想确认真实评审中怎么处理。', author:'郑同学 · 大二', time:'6 小时前', num:'28 回复', hot:true},
+  {cat:'答疑', tag:'答疑', tagCls:'red', title:'省金和省奖、国赛资格到底是什么关系？', excerpt:'一直没搞明白：省金是不是就等于国赛入围？拿了省金还能拿国奖吗？两者是并列档位还是晋级关系？求科普。', author:'黄同学 · 大三', time:'昨天', num:'35 回复', hot:true},
+  {cat:'答疑', tag:'答疑', tagCls:'red', title:'商业计划书一般写多少页？附件怎么排最加分？', excerpt:'我们写了 45 页正文 + 12 个附件，担心评审看不完。想知道评委习惯的篇幅和附件取舍标准。', author:'孙同学 · 大二', time:'2 天前', num:'19 回复'},
+  // ── 资源下载 ──
+  {cat:'资源', tag:'资源', tagCls:'', title:'商业计划书通用模板 + 财务三表（收入/成本/现金流）打包下载', excerpt:'整理了一份我们自己打磨过两轮的模板：含市场分析框架、商业模式画布、财务预测表（带公式），可直接套用。', author:'刘同学 · 已进入省赛', time:'1 天前', num:'45 下载', hot:true},
+  {cat:'资源', tag:'资源', tagCls:'', title:'国创赛申报 PPT 模板（16:9，含图表占位与配色规范）', excerpt:'深藏青 + 香槟金商务风格，封面/痛点/方案/落地/财务/团队全流程版式，附字体说明，改文字就能用。', author:'团队 · 运营组', time:'2 天前', num:'38 下载'},
+  {cat:'资源', tag:'资源', tagCls:'', title:'路演答辩 Q&A 备题库（50 问，含应答要点）', excerpt:'按商业模式 / 技术壁垒 / 团队 / 财务 / 社会价值五类整理 50 个高频问题，每题附 3 条应答要点，答辩前过一遍心里有底。', author:'学姐团 · 分享', time:'3 天前', num:'52 下载', hot:true},
+  {cat:'资源', tag:'资源', tagCls:'', title:'往届获奖项目公开材料合集（网盘链接）', excerpt:'收集了近三年可公开获取的省金及以上项目计划书与答辩录像链接，仅供学习参考，请勿直接套用或外传。', author:'热心同学', time:'4 天前', num:'76 下载', hot:true},
+];
+
+// 论坛渲染
+function renderForum(cat){
+  const list = document.getElementById('forum-posts');
+  const posts = cat === '全部' ? FORUM_POSTS : FORUM_POSTS.filter(p=>p.cat===cat);
+  document.getElementById('forum-count').textContent = '共 ' + FORUM_POSTS.length + ' 个帖子';
+  if(!posts.length){
+    list.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-3);font-size:14px">该板块暂无示例帖子</div>';
+    return;
+  }
+  list.innerHTML = posts.map(p=>`
+    <div class="post-item">
+      <div class="post-avatar">${p.author.charAt(0)}</div>
+      <div class="post-main">
+        <div class="post-title"><span class="post-tag ${p.tagCls}">${p.tag}</span>${p.title}</div>
+        <div class="post-excerpt">${p.excerpt}</div>
+        <div class="post-meta"><span>${p.author}</span><span>${p.time}</span><span class="${p.hot?'hot':''}">${p.num}</span></div>
+      </div>
+    </div>`).join('');
+}
+
+// 论坛 tab 切换（数据驱动过滤）
+document.querySelectorAll('.f-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.f-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
+    renderForum(tab.textContent.trim());
   });
 });
+// 侧边栏板块导航点击也可切换
+document.querySelectorAll('.sidebar-card .li[data-cat]').forEach(li=>{
+  li.addEventListener('click',()=>{
+    const cat = li.getAttribute('data-cat');
+    document.querySelectorAll('.f-tab').forEach(t=>{
+      const map = {'组队':'校友组队','经验':'经验分享','答疑':'答疑解惑','资源':'资源下载'};
+      t.classList.toggle('active', t.textContent.trim() === map[cat]);
+    });
+    renderForum(cat);
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+// 侧边栏各板块帖数统计
+document.querySelectorAll('.sidebar-card .li[data-cat]').forEach(li=>{
+  const cat = li.getAttribute('data-cat');
+  const n = FORUM_POSTS.filter(p=>p.cat===cat).length;
+  li.querySelector('.r').textContent = n + ' 帖';
+});
+// 发布按钮：示例版提示
+document.getElementById('forum-publish').addEventListener('click',()=>{
+  alert('当前为示例演示版，发布功能即将上线，敬请期待');
+});
+// 初始化渲染
+renderForum('全部');
 
 buildAiTrackOptions();
 
