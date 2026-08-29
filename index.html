@@ -1329,7 +1329,7 @@
     </div>
   </div>
   <div class="forum-tabs"><div class="forum-tabs-in">
-    <div class="f-tab active">全部</div><div class="f-tab">校友组队</div><div class="f-tab">经验分享</div><div class="f-tab">答疑解惑</div><div class="f-tab">资源下载</div>
+    <div class="f-tab active">全部</div><div class="f-tab">校友组队</div><div class="f-tab">经验分享</div><div class="f-tab">答疑解惑</div>
   </div></div>
   <div class="forum-body">
     <div>
@@ -1346,7 +1346,6 @@
         <div class="li" data-cat="组队"><span>👥 校友组队</span><span class="r">0 帖</span></div>
         <div class="li" data-cat="经验"><span>💡 经验分享</span><span class="r">0 帖</span></div>
         <div class="li" data-cat="答疑"><span>❓ 答疑解惑</span><span class="r">0 帖</span></div>
-        <div class="li" data-cat="资源"><span>📦 资源下载</span><span class="r">0 帖</span></div>
       </div>
       <div class="card sidebar-card">
         <h4>热门话题</h4>
@@ -1871,29 +1870,70 @@ async function exportSheet(){
 // ═══ 论坛社区 · 示例数据（静态演示版） ═══
 const FORUM_POSTS = [
   // ── 校友组队 ──
-  {cat:'组队', tag:'组队', tagCls:'', title:'红旅公益组寻 2 名队友（财务 + 设计），已有成熟社区养老项目', excerpt:'项目已运行半年，覆盖 3 个社区、服务老人 320 人次，现缺一名财务背景同学负责商业模式测算、一名设计同学打磨路演视觉，预计冲击省金。', author:'李同学 · 商学院', time:'2 小时前', num:'23 回复', hot:true},
-  {cat:'组队', tag:'组队', tagCls:'', title:'主赛道创业组项目已有营收，寻技术合伙人（后端开发）', excerpt:'校园二手教材平台月流水 4.6 万、已盈亏平衡，技术栈微信小程序 + Python，缺一名后端开发负责识别引擎维护，可给期权。', author:'赵同学 · 计算机学院', time:'5 小时前', num:'31 回复', hot:true},
-  {cat:'组队', tag:'组队', tagCls:'', title:'萌芽赛道低年级团队寻指导教师与 1-2 名跨专业队友', excerpt:'我们是大一团队，做乡村儿童安全教育教具，已出原型。希望找到擅长公益方向且有指导经验的同学或老师带一带，学习为主。', author:'陈同学 · 大一', time:'昨天', num:'12 回复'},
-  {cat:'组队', tag:'组队', tagCls:'', title:'高教主创意组招募算法/硬件同学，巡检机器人样机已完成', excerpt:'已完成 2 台样机、3 家机构试用，现有国家级人才指导，缺视觉算法与硬件调试同学各 1 名，欢迎实验室同学加入。', author:'吴同学 · 机器人实验室', time:'2 天前', num:'18 回复'},
+  {cat:'组队', tag:'组队', tagCls:'', title:'红旅公益组寻 2 名队友（财务 + 设计），已有成熟社区养老项目',
+   content:['项目背景：我们团队做「社区养老陪伴计划」，已在海珠区 3 个社区落地运营半年，累计服务老人 320 人次，与 2 家社区服务中心签订了合作协议，获校级公益项目立项支持。',
+            '目前缺口：1）财务背景同学——负责商业模式测算、成本结构梳理和公益项目可持续发展方案（服务收费 + 政府购买 + 企业赞助三线并行）；2）设计同学——负责路演 PPT 视觉、项目画册和答辩材料排版。',
+            '我们能提供：完整的项目数据与一手调研材料、成熟的社区资源、明确的参赛规划（预计今年冲击省金）。欢迎有热情、能稳定投入 6 个月的同学私信或评论区留言，先聊项目再决定。'],
+   replies:[
+     {author:'李学姐 · 已获省银', time:'2 小时前', text:'帮顶！公益组项目建议把「覆盖人数 + 复购/续约数据」写清楚，评委很吃这套，你们数据已经很扎实了。'},
+     {author:'楼主 · 李同学', time:'1 小时前', text:'谢谢学姐，续约率我们整理过：三个社区合作续约率 100%，我补充到正文里。'},
+     {author:'王同学 · 大二', time:'30 分钟前', text:'我是会计学专业的，会做财务三表和成本测算，还来得及吗？'}],
+   author:'李同学 · 商学院', time:'2 小时前', num:'23 回复', hot:true},
+
+  {cat:'组队', tag:'组队', tagCls:'', title:'主赛道创业组项目已有营收，寻技术合伙人（后端开发）',
+   content:['项目现状：校园二手教材循环平台，微信小程序 + 自研识别引擎，已在 3 所高校运营，注册用户 2.3 万，月流水 4.6 万元并实现盈亏平衡，累计循环教材 12 万册。',
+            '招募岗位：后端开发 1 名，负责教材识别引擎维护、交易系统稳定性优化、后续商家端 API 开发。技术栈：Python + FastAPI + MySQL，小程序前端已由现有成员负责。',
+            '回报与承诺：核心成员按贡献给期权，参与省级以上赛事署名，项目已进入学校创业孵化器，可提供办公场地。欢迎有真实项目经验、能长期投入的同学，技术面聊。'],
+   replies:[
+     {author:'赵同学 · 计算机学院', time:'4 小时前', text:'做过类似电商后端，FastAPI + Redis 都熟，私信了！想先看看你们的技术架构文档。'},
+     {author:'刘学长 · 已进国赛', time:'2 小时前', text:'建议营收凭证提前整理好（银行流水 + 平台后台截图），创业组评审四件套里「到账营收」是最硬的证据，你们这个体量很有戏。'}],
+   author:'赵同学 · 计算机学院', time:'5 小时前', num:'31 回复', hot:true},
+
   // ── 经验分享 ──
-  {cat:'经验', tag:'经验', tagCls:'gold', title:'从校赛到国赛金奖：商业计划书打磨全流程复盘（附评分变化记录）', excerpt:'重点讲怎么把「社会价值」和「商业模式」两条线讲清楚，从 62 分改到 88 分的四次迭代记录，含评委现场提问原话。', author:'王学长 · 已获国赛金奖', time:'昨天', num:'89 回复', hot:true},
-  {cat:'经验', tag:'经验', tagCls:'gold', title:'创业组「经营四件套」怎么准备：公司 / 到账营收 / 融资 / 实名客户', excerpt:'省赛评委最看重的硬证据清单，附我们开公司、拉融资踩过的坑，以及银行流水怎么整理成附件最规范。', author:'刘学长 · 已进国赛', time:'3 天前', num:'67 回复', hot:true},
-  {cat:'经验', tag:'经验', tagCls:'gold', title:'路演答辩 5 分钟讲清项目：评委最常问的 10 个问题', excerpt:'从「你的壁垒是什么」到「凭什么你能做」，整理评委高频提问和回答框架，含答辩 PPT 每页讲稿模板。', author:'林学姐 · 省级优秀项目', time:'4 天前', num:'54 回复'},
-  {cat:'经验', tag:'经验', tagCls:'gold', title:'双轨评分时代：材料分 vs 作品水平分到底怎么理解', excerpt:'平台自评会给出两个分数，两者差值代表材料呈现的落差。分享怎么根据双轨分差定位「材料没写到位」的部分。', author:'周学姐 · 已获国银', time:'5 天前', num:'41 回复'},
+  {cat:'经验', tag:'经验', tagCls:'gold', title:'从校赛到国赛金奖：商业计划书打磨全流程复盘（附评分变化记录）',
+   content:['先说结论：我们团队从校赛 62 分一路改到国赛金奖，核心就做对了两件事——把「社会价值」讲成了一条数据链，把「商业模式」讲成了一个闭环。',
+            '第一轮（62 分）：问题很明显，痛点靠「据说」「大约」支撑，市场分析没有一手调研，评委批注全是「数据来源？」。我们用了两周补了 200 份问卷 + 20 个深度访谈，把市场规模从拍脑袋改成「问卷推算 + 官方数据交叉验证」。',
+            '第二轮（70 分）：数据有了，但逻辑是散的。我们把全文改成一条主线——「一个真实痛点 → 我们的解法 → 为什么是我们 → 怎么赚钱 → 为什么能做大」，每一章都围绕这条线展开，删掉所有跟主线无关的内容。',
+            '第三、四轮（82→88 分）：开始抠证据。每个论断必须配一个可查证的附件（检测报告、合作协议、银行流水、实名客户名单），PPT 从 25 页删到 12 页，答辩只练 5 分钟版和 90 秒版。最终国赛路演 5 分钟没超时，评委问的问题全部在我们的 Q&A 备题库里。'],
+   replies:[
+     {author:'黄同学 · 大三', time:'昨天', text:'太实用了！想问下第二轮「删掉所有跟主线无关的内容」具体怎么判断哪些该删？'},
+     {author:'楼主 · 王学长', time:'昨天', text:'标准就一条：这句话删掉后，评委会不会对「痛点-解法-价值」链条的理解打折扣。不影响理解的（比如团队合影、冗长背景介绍）一律删。'},
+     {author:'郑同学 · 大二', time:'12 小时前', text:'跪求 Q&A 备题库，就是资源板块那个 50 问吗？已经下载了，很全！'}],
+   author:'王学长 · 已获国赛金奖', time:'昨天', num:'89 回复', hot:true},
+
+  {cat:'经验', tag:'经验', tagCls:'gold', title:'创业组「经营四件套」怎么准备：公司 / 到账营收 / 融资 / 实名客户',
+   content:['先说背景：高教主赛道创业组的评审核心是「经营四件套」——已注册公司、到账营收、真实融资、实名客户。很多团队在这上面吃亏，不是因为项目不行，而是证据准备不规范。',
+            '1）公司：注册时间、股权结构、经营范围要和项目匹配。评委真的会查企查查，经营范围写错了就是态度问题。2）到账营收：只认银行流水和税务开票记录，微信收款码截图不算。我们整理了近 6 个月的银行对账单，按月份标注了「交易对手 + 金额 + 对应项目」。',
+            '3）融资：天使轮、种子轮都可以，但必须有投资协议和到账凭证，口头承诺一律不算。4）实名客户：整理成清单——单位名称、联系人、合作内容、金额、时间，能配合背调的最好附上联系方式（脱敏后）。',
+            '避坑提醒：四件套宁可少一件、不可造一件。评委对「材料自相矛盾」的判断是致命短板，直接降档，造假是红线。'],
+   replies:[
+     {author:'吴同学 · 已进省赛', time:'3 天前', text:'干货！想补充一点：实名客户清单我们用了表格 + 附件扫描件两版，答辩时评委直接翻到那页问，有备无患。'},
+     {author:'林学姐 · 省级优秀项目', time:'2 天前', text:'融资部分补充：天使轮如果是个人投资，最好要投资协议 + 银行转账记录 + 投资人身份说明，三样齐了才算数。'}],
+   author:'刘学长 · 已进国赛', time:'3 天前', num:'67 回复', hot:true},
+
   // ── 答疑解惑 ──
-  {cat:'答疑', tag:'答疑', tagCls:'red', title:'萌芽赛道「创新性」到底该怎么写？低年级没有成熟产品', excerpt:'创新性占 40 分，但我们只有教具原型，没有数据没有专利。想请教有经验的学长学姐，这条线怎么组织材料？', author:'陈同学 · 大一', time:'3 小时前', num:'12 回复'},
-  {cat:'答疑', tag:'答疑', tagCls:'red', title:'没有营收、没有专利，会不会被压分？', excerpt:'创意组早期项目，担心因为缺硬证据直接被压到省奖档。看了规则说属于「允许短板」，想确认真实评审中怎么处理。', author:'郑同学 · 大二', time:'6 小时前', num:'28 回复', hot:true},
-  {cat:'答疑', tag:'答疑', tagCls:'red', title:'省金和省奖、国赛资格到底是什么关系？', excerpt:'一直没搞明白：省金是不是就等于国赛入围？拿了省金还能拿国奖吗？两者是并列档位还是晋级关系？求科普。', author:'黄同学 · 大三', time:'昨天', num:'35 回复', hot:true},
-  {cat:'答疑', tag:'答疑', tagCls:'red', title:'商业计划书一般写多少页？附件怎么排最加分？', excerpt:'我们写了 45 页正文 + 12 个附件，担心评审看不完。想知道评委习惯的篇幅和附件取舍标准。', author:'孙同学 · 大二', time:'2 天前', num:'19 回复'},
-  // ── 资源下载 ──
-  {cat:'资源', tag:'资源', tagCls:'', title:'商业计划书通用模板 + 财务三表（收入/成本/现金流）打包下载', excerpt:'整理了一份我们自己打磨过两轮的模板：含市场分析框架、商业模式画布、财务预测表（带公式），可直接套用。', author:'刘同学 · 已进入省赛', time:'1 天前', num:'45 下载', hot:true},
-  {cat:'资源', tag:'资源', tagCls:'', title:'国创赛申报 PPT 模板（16:9，含图表占位与配色规范）', excerpt:'深藏青 + 香槟金商务风格，封面/痛点/方案/落地/财务/团队全流程版式，附字体说明，改文字就能用。', author:'团队 · 运营组', time:'2 天前', num:'38 下载'},
-  {cat:'资源', tag:'资源', tagCls:'', title:'路演答辩 Q&A 备题库（50 问，含应答要点）', excerpt:'按商业模式 / 技术壁垒 / 团队 / 财务 / 社会价值五类整理 50 个高频问题，每题附 3 条应答要点，答辩前过一遍心里有底。', author:'学姐团 · 分享', time:'3 天前', num:'52 下载', hot:true},
-  {cat:'资源', tag:'资源', tagCls:'', title:'往届获奖项目公开材料合集（网盘链接）', excerpt:'收集了近三年可公开获取的省金及以上项目计划书与答辩录像链接，仅供学习参考，请勿直接套用或外传。', author:'热心同学', time:'4 天前', num:'76 下载', hot:true},
+  {cat:'答疑', tag:'答疑', tagCls:'red', title:'萌芽赛道「创新性」到底该怎么写？低年级没有成熟产品',
+   content:['我们是大一团队，做乡村儿童安全教育教具，目前只有原型和 60 个孩子的试用反馈，没有检测报告、没有专利。萌芽赛道创新性占 40 分，想请教有经验的学长学姐：这条线到底怎么组织材料？',
+            '我自己目前的理解是：萌芽赛道可能更看重「想法的原创性 + 问题洞察 + 动手验证」，而不是硬核技术证据。我们的尝试是：1）把 60 份试用反馈做成对比数据（使用前后安全知识测试正确率从 52% 提升到 81%）；2）写了完整的设计迭代记录；3）整理了乡村走访的一手观察。不知道这个方向对不对？'],
+   replies:[
+     {author:'陈学长 · 萌芽国赛获奖', time:'2 小时前', text:'方向完全对！萌芽赛道就是看「从真实问题出发的完整思考过程」。建议再补三样：产品迭代的实物照片/视频记录、合作小学老师的推荐信或评价、一份「如果给你 10 万你会怎么改进」的展望——评委很吃这套。'},
+     {author:'孙学姐 · 省级优秀项目', time:'1 小时前', text:'补充：把「为什么选这个安全问题」的调研过程写透——你们走访了几个村、访谈了谁、发现了什么被忽视的细节，这些比技术参数更能打动萌芽评委。'}],
+   author:'陈同学 · 大一', time:'3 小时前', num:'12 回复'},
+
+  {cat:'答疑', tag:'答疑', tagCls:'red', title:'没有营收、没有专利，会不会被压分？',
+   content:['我们是创意组早期项目，样机完成、有试用协议，但营收和专利都是 0。看了评审规则里提到「允许短板」的说法，也看了平台的规则页，知道创意组「无营收/未注册公司」属于允许短板不扣分。',
+            '想确认两个问题：1）实操中评委真的会严格执行「允许短板豁免」吗？会不会还是因为缺硬证据下意识压分？2）如果被压分，主要会压在哪几个维度上？我们好提前把能补的证据补齐。'],
+   replies:[
+     {author:'刘学长 · 已获国银', time:'6 小时前', text:'会执行，但有个前提：你必须在「有的证据」上足够硬。创意组的逻辑是——天花板证据、权威验证、真实落地三件套里有一件特别突出，无营收就完全不是问题；如果三件都不硬，那缺营收才会成为压分的最后一根稻草。'},
+     {author:'李学姐 · 已获省金', time:'4 小时前', text:'被压分的主要是「产业价值」维度（创意组 25 分）。建议把试用协议的覆盖范围、合作方背书、以及潜在付费意愿的调研数据做扎实，把这块补起来。'}],
+   author:'郑同学 · 大二', time:'6 小时前', num:'28 回复', hot:true},
 ];
 
-// 论坛渲染
+let forumCat = '全部';
+
+// 论坛渲染（列表）
 function renderForum(cat){
+  forumCat = cat;
   const list = document.getElementById('forum-posts');
   const posts = cat === '全部' ? FORUM_POSTS : FORUM_POSTS.filter(p=>p.cat===cat);
   document.getElementById('forum-count').textContent = '共 ' + FORUM_POSTS.length + ' 个帖子';
@@ -1901,15 +1941,46 @@ function renderForum(cat){
     list.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-3);font-size:14px">该板块暂无示例帖子</div>';
     return;
   }
-  list.innerHTML = posts.map(p=>`
-    <div class="post-item">
+  list.innerHTML = posts.map((p,idx)=>{
+    const gi = FORUM_POSTS.indexOf(p);
+    return `<div class="post-item" onclick="showForumDetail(${gi})">
       <div class="post-avatar">${p.author.charAt(0)}</div>
       <div class="post-main">
         <div class="post-title"><span class="post-tag ${p.tagCls}">${p.tag}</span>${p.title}</div>
-        <div class="post-excerpt">${p.excerpt}</div>
+        <div class="post-excerpt">${p.excerpt||p.content[0].slice(0,60)+'…'}</div>
         <div class="post-meta"><span>${p.author}</span><span>${p.time}</span><span class="${p.hot?'hot':''}">${p.num}</span></div>
       </div>
+    </div>`;
+  }).join('');
+}
+
+// 帖子详情（点开查看）
+function showForumDetail(i){
+  const p = FORUM_POSTS[i];
+  const replies = (p.replies||[]).map(r=>`
+    <div style="display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #f0f2f7">
+      <div class="post-avatar">${r.author.charAt(0)}</div>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+          <span style="font-size:13px;font-weight:600;color:var(--navy)">${r.author}</span>
+          <span style="font-size:12px;color:var(--text-3)">${r.time}</span>
+        </div>
+        <p style="font-size:13.5px;color:var(--text-2);line-height:1.8">${r.text}</p>
+      </div>
     </div>`).join('');
+  document.getElementById('forum-posts').innerHTML = `
+    <div style="padding:26px 28px">
+      <div style="margin-bottom:14px"><span class="post-tag ${p.tagCls}">${p.tag}</span></div>
+      <h3 style="font-size:19px;font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:10px">${p.title}</h3>
+      <div class="post-meta" style="margin-bottom:18px"><span>${p.author}</span><span>${p.time}</span><span>${p.num}</span></div>
+      <div style="font-size:14.5px;color:var(--ink);line-height:2;margin-bottom:20px">
+        ${p.content.map(c=>'<p style="margin-bottom:12px">'+c+'</p>').join('')}
+      </div>
+      <h4 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px">全部回复（${(p.replies||[]).length}）</h4>
+      ${replies}
+      <button class="btn btn-line" onclick="renderForum(forumCat)" style="margin-top:22px">← 返回列表</button>
+    </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 // 论坛 tab 切换（数据驱动过滤）
@@ -1925,7 +1996,7 @@ document.querySelectorAll('.sidebar-card .li[data-cat]').forEach(li=>{
   li.addEventListener('click',()=>{
     const cat = li.getAttribute('data-cat');
     document.querySelectorAll('.f-tab').forEach(t=>{
-      const map = {'组队':'校友组队','经验':'经验分享','答疑':'答疑解惑','资源':'资源下载'};
+      const map = {'组队':'校友组队','经验':'经验分享','答疑':'答疑解惑'};
       t.classList.toggle('active', t.textContent.trim() === map[cat]);
     });
     renderForum(cat);
@@ -1942,6 +2013,7 @@ document.querySelectorAll('.sidebar-card .li[data-cat]').forEach(li=>{
 document.getElementById('forum-publish').addEventListener('click',()=>{
   alert('当前为示例演示版，发布功能即将上线，敬请期待');
 });
+// 初始化渲染
 // 初始化渲染
 renderForum('全部');
 
