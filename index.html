@@ -409,6 +409,32 @@
   </div>
 </div>
 
+<!-- ════════ 评审报告（独立页） ════════ -->
+<div class="page" id="page-report">
+  <div class="page-banner">
+    <div class="page-banner-in">
+      <div class="crumbs"><a href="javascript:go('home')">首页</a> &gt; <a href="javascript:go('ai')">智能打分</a> &gt; 评审报告</div>
+      <h1>评审报告</h1>
+      <div class="meta" id="report-meta">完整评审详情 · 支持导出 Word 文档</div>
+    </div>
+  </div>
+  <div style="max-width:980px;margin:0 auto;padding:0 20px 40px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:22px 0 18px;flex-wrap:wrap;gap:10px">
+      <div style="font-size:13px;color:var(--text-2)" id="report-title">—</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-line" onclick="go('ai')" style="padding:10px 18px">← 返回打分</button>
+        <button class="btn btn-blue" onclick="exportDocx()" id="report-export-btn" style="padding:10px 18px">📄 导出 Word 报告</button>
+      </div>
+    </div>
+    <div id="report-body"></div>
+    <div id="report-empty" style="display:none;text-align:center;padding:90px 0;color:var(--text-3)">
+      <div style="font-size:40px;margin-bottom:12px">📭</div>
+      <p style="font-size:15px">暂无评审结果</p>
+      <p style="font-size:13px;margin-top:6px">请先到 <a href="javascript:go('ai')" style="color:var(--blue)">智能打分</a> 完成一次评审，再回来查看完整报告。</p>
+    </div>
+  </div>
+</div>
+
 <!-- ════════ 论坛社区 ════════ -->
 <div class="page" id="page-forum">
   <div class="page-banner">
@@ -534,8 +560,9 @@ function go(view){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+view).classList.add('active');
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  const navMap={home:'nav-home',ai:'nav-ai',forum:'nav-forum',mine:'nav-mine'};
-  document.getElementById(navMap[view]).classList.add('active');
+  const navMap={home:'nav-home',ai:'nav-ai',forum:'nav-forum',mine:'nav-mine',report:'nav-ai'};
+  const navEl = document.getElementById(navMap[view]);
+  if(navEl) navEl.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -803,6 +830,7 @@ async function runAiReview(){
       throw new Error((j && j.detail) || ('HTTP ' + resp.status));
     }
     if(!j || !j.result){ throw new Error('后端返回数据格式异常'); }
+    mjLastTrack = TRACK_KEYS[trackIdx];
     renderAiResult(j.result);
   } catch(e) {
     showAiError('评审失败：' + (e.message || String(e)));
@@ -812,6 +840,9 @@ async function runAiReview(){
     btn.textContent = '开始 AI 智能打分';
   }
 }
+
+// 当前评审的赛道 key（供报告页/导出使用）
+let mjLastTrack = '';
 
 function renderAiResult(d){
   const num = v => (v===undefined||v===null||isNaN(v)) ? 0 : Math.round(Number(v)*100)/100;
@@ -827,19 +858,15 @@ function renderAiResult(d){
     </div>`;
   }).join('');
 
-  const subTables = dims.map(dim=>{
-    const subs = Array.isArray(dim.subdims) ? dim.subdims : [];
-    const rows = subs.map(s=>'<tr><td>'+str(s.name)+'</td><td class="score">'+num(s.score)+' / '+num(s.full)+'</td><td>'+str(s.loss)+'</td></tr>').join('');
-    return `<div class="card" style="margin-bottom:14px">
-      <h4>${str(dim.name)}（${num(dim.score)} / ${num(dim.full)} 分）</h4>
-      <p style="font-size:13px;color:var(--text-2);margin-bottom:10px">${str(dim.diagnosis)}</p>
-      <table class="rubric"><thead><tr><th style="width:22%">子维度</th><th style="width:18%">得分</th><th>关键失分点</th></tr></thead><tbody>${rows}</tbody></table>
-    </div>`;
-  }).join('');
+  // 保存完整结果（供独立报告页与 Word 导出）
+  const title = (lastFile && lastFile.name) ? lastFile.name.replace(/\.[^.]+$/, '') : '创新作品';
+  try{
+    localStorage.setItem('mj_last_report', JSON.stringify({
+      title: title, track: mjLastTrack, material: 'bp', result: d, time: new Date().toISOString()
+    }));
+  }catch(e){}
 
-  const li = arr => (Array.isArray(arr)?arr:[]).map(x=>'<li>'+str(x)+'</li>').join('');
-  const sug = (Array.isArray(d.suggestions)?d.suggestions:[]).map(s=>'<li><b>优先级'+(s.priority||'—')+'：</b>'+str(s.text)+'</li>').join('');
-
+  // 打分页只展示「简洁得分卡」
   document.getElementById('ai-result-body').innerHTML = `
     <div class="ai-score-overview">
       <div class="ai-total">
@@ -854,16 +881,128 @@ function renderAiResult(d){
       <p style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px">${str(d.summary)}</p>
       <p style="font-size:13px;color:var(--text-2)"><b>最大改造杠杆：</b>${str(d.max_leverage)}</p>
     </div>
-    <h4 style="margin:22px 0 10px;font-weight:700;color:var(--navy)">逐维度分项评分</h4>
-    ${subTables}
-    <div class="card" style="margin-bottom:14px"><h4>核心亮点</h4><ul class="ai-list">${li(d.highlights)}</ul></div>
-    <div class="card" style="margin-bottom:14px"><h4>关键不足</h4><ul class="ai-list">${li(d.weaknesses)}</ul></div>
-    <div class="card" style="margin-bottom:14px"><h4>改进建议（按优先级）</h4><ul class="ai-list">${sug}</ul></div>
-    <div class="card"><h4>获奖潜力判断</h4><p style="font-size:14px;color:var(--text-2)">${str(d.potential)}</p></div>
+    <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+      <button class="btn btn-blue" onclick="showReport()" style="flex:1;justify-content:center;padding:12px;min-width:220px">📋 查看完整评审报告</button>
+      <button class="btn btn-line" onclick="exportDocx()" style="flex:1;justify-content:center;padding:12px;min-width:220px">📄 导出 Word 报告</button>
+    </div>
+    <p style="font-size:12px;color:var(--text-3);margin-top:10px;text-align:center">完整报告含逐维度子项评分、亮点、不足与改进建议，可独立页面查看并导出为 Word 文档。</p>
   `;
 
   document.getElementById('ai-result').style.display = 'block';
   document.getElementById('ai-result').scrollIntoView({behavior:'smooth'});
+}
+
+function getSavedReport(){
+  try{ return JSON.parse(localStorage.getItem('mj_last_report') || 'null'); }catch(e){ return null; }
+}
+
+function buildReportHtml(saved){
+  const d = saved.result;
+  const num = v => (v===undefined||v===null||isNaN(v)) ? 0 : Math.round(Number(v)*100)/100;
+  const str = v => (v==null||v==='') ? '—' : String(v);
+  const dims = Array.isArray(d.dims) ? d.dims : [];
+
+  const overviewRows = dims.map(dim=>'<tr><td>'+str(dim.name)+'</td><td class="score">'+num(dim.full)+'</td><td class="score">'+num(dim.score)+'</td><td>'+str(dim.diagnosis)+'</td></tr>').join('');
+  const subTables = dims.map(dim=>{
+    const subs = Array.isArray(dim.subdims) ? dim.subdims : [];
+    const rows = subs.map(s=>'<tr><td>'+str(s.name)+'</td><td class="score">'+num(s.score)+' / '+num(s.full)+'</td><td>'+str(s.loss)+'</td></tr>').join('');
+    return `<div class="card" style="margin-bottom:14px">
+      <h4>${str(dim.name)}（${num(dim.score)} / ${num(dim.full)} 分）</h4>
+      <p style="font-size:13px;color:var(--text-2);margin-bottom:10px">${str(dim.diagnosis)}</p>
+      <table class="rubric"><thead><tr><th style="width:22%">子维度</th><th style="width:18%">得分</th><th>关键失分点</th></tr></thead><tbody>${rows}</tbody></table>
+    </div>`;
+  }).join('');
+
+  const li = arr => (Array.isArray(arr)?arr:[]).map(x=>'<li>'+str(x)+'</li>').join('');
+  const sug = (Array.isArray(d.suggestions)?d.suggestions:[]).map(s=>'<li><b>优先级'+(s.priority||'—')+'：</b>'+str(s.text)+'</li>').join('');
+
+  return `
+    <div class="ai-score-overview" style="margin-bottom:20px">
+      <div class="ai-total">
+        <div class="num">${num(d.total)}</div>
+        <div class="lab">AI 评分 / 100</div>
+        <div class="ai-level">${str(d.level)}（${str(d.level_range)}）</div>
+        ${(d.work_score!=null) ? '<div style="font-size:12px;color:var(--text-3);margin-top:4px">作品水平分 ' + num(d.work_score) + '</div>' : ''}
+      </div>
+      <div class="ai-dims">${dims.map(dim=>{
+        const full = num(dim.full)||1, score = num(dim.score);
+        const pct = Math.min(100, Math.round(score/full*100));
+        return '<div class="dim-bar"><div class="dl"><span>'+str(dim.name)+'（'+full+'分）</span><span>'+score+' / '+full+'</span></div><div class="track"><div class="fill '+(pct<70?'warn':'')+'" style="width:'+pct+'%"></div></div></div>';
+      }).join('')}</div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <h4>总评结论</h4>
+      <p style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px">${str(d.summary)}</p>
+      <p style="font-size:13px;color:var(--text-2)"><b>最大改造杠杆：</b>${str(d.max_leverage)}</p>
+    </div>
+    <h4 style="margin:22px 0 10px;font-weight:700;color:var(--navy)">一、评分总览</h4>
+    <div class="card" style="padding:0;overflow:auto">
+      <table class="rubric" style="margin:0">
+        <thead><tr><th style="width:16%">维度</th><th style="width:10%">满分</th><th style="width:10%">得分</th><th>一句话诊断</th></tr></thead>
+        <tbody>${overviewRows}</tbody>
+      </table>
+    </div>
+    <h4 style="margin:22px 0 10px;font-weight:700;color:var(--navy)">二、逐维度分项评分</h4>
+    ${subTables}
+    <div class="card" style="margin-bottom:14px"><h4>三、核心亮点</h4><ul class="ai-list">${li(d.highlights)}</ul></div>
+    <div class="card" style="margin-bottom:14px"><h4>四、关键不足</h4><ul class="ai-list">${li(d.weaknesses)}</ul></div>
+    <div class="card" style="margin-bottom:14px"><h4>五、改进建议（按优先级）</h4><ul class="ai-list">${sug}</ul></div>
+    <div class="card"><h4>六、获奖潜力判断</h4><p style="font-size:14px;color:var(--text-2)">${str(d.potential)}</p></div>
+    <p style="font-size:12px;color:var(--text-3);margin-top:14px;text-align:center">本报告由「明鉴」AI 评审引擎自动生成，评分仅供参考，最终以大赛官方评审为准。</p>
+  `;
+}
+
+function showReport(){
+  const saved = getSavedReport();
+  const empty = document.getElementById('report-empty');
+  const body = document.getElementById('report-body');
+  if(!saved){
+    empty.style.display = 'block';
+    body.style.display = 'none';
+    go('report');
+    return;
+  }
+  const d = saved.result;
+  document.getElementById('report-title').textContent =
+    '作品：《' + saved.title + '》 · ' + saved.track + ' · ' +
+    new Date(saved.time).toLocaleString('zh-CN');
+  document.getElementById('report-meta').textContent =
+    '总分 ' + d.total + ' / 100 · ' + (d.level || '—') + '（' + (d.level_range || '—') + '）' +
+    ((d.work_score!=null) ? ' · 作品水平分 ' + d.work_score : '');
+  body.innerHTML = buildReportHtml(saved);
+  body.style.display = 'block';
+  empty.style.display = 'none';
+  go('report');
+}
+
+async function exportDocx(){
+  const saved = getSavedReport();
+  if(!saved){ alert('暂无评审结果，请先完成一次 AI 打分'); return; }
+  const btn = document.getElementById('report-export-btn');
+  const old = btn ? btn.textContent : '';
+  if(btn){ btn.disabled = true; btn.textContent = '正在生成 Word…'; }
+  try{
+    const resp = await fetch(API_BASE + '/api/export_docx', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: saved.title, track: saved.track, material: saved.material || 'bp', result: saved.result }),
+    });
+    if(!resp.ok){
+      const j = await resp.json().catch(()=>({}));
+      throw new Error((j && j.detail) || ('HTTP ' + resp.status));
+    }
+    const blob = await resp.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = saved.title + '_创新竞赛评审报告.docx';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }catch(e){
+    alert('导出失败：' + (e.message || String(e)));
+  }finally{
+    if(btn){ btn.disabled = false; btn.textContent = old; }
+  }
 }
 
 // 论坛 tab 切换
