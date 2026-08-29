@@ -905,11 +905,11 @@ function buildReportHtml(saved){
   const overviewRows = dims.map(dim=>'<tr><td>'+str(dim.name)+'</td><td class="score">'+num(dim.full)+'</td><td class="score">'+num(dim.score)+'</td><td>'+str(dim.diagnosis)+'</td></tr>').join('');
   const subTables = dims.map(dim=>{
     const subs = Array.isArray(dim.subdims) ? dim.subdims : [];
-    const rows = subs.map(s=>'<tr><td>'+str(s.name)+'</td><td class="score">'+num(s.score)+' / '+num(s.full)+'</td><td>'+str(s.loss)+'</td></tr>').join('');
-    return `<div class="card" style="margin-bottom:14px">
+    const rows = subs.map(s=>'<tr><td>'+str(s.name)+'</td><td class="score">'+num(s.full)+'</td><td class="score">'+num(s.score)+'</td><td>'+str(s.gain)+'</td><td>'+str(s.loss)+'</td></tr>').join('');
+    return `<div class="card" style="margin-bottom:14px;overflow:auto">
       <h4>${str(dim.name)}（${num(dim.score)} / ${num(dim.full)} 分）</h4>
       <p style="font-size:13px;color:var(--text-2);margin-bottom:10px">${str(dim.diagnosis)}</p>
-      <table class="rubric"><thead><tr><th style="width:22%">子维度</th><th style="width:18%">得分</th><th>关键失分点</th></tr></thead><tbody>${rows}</tbody></table>
+      <table class="rubric" style="min-width:640px"><thead><tr><th style="width:12%">小项</th><th style="width:8%">满分</th><th style="width:8%">得分</th><th style="width:40%">得分点（证据）</th><th>扣分点</th></tr></thead><tbody>${rows}</tbody></table>
     </div>`;
   }).join('');
 
@@ -942,7 +942,7 @@ function buildReportHtml(saved){
         <tbody>${overviewRows}</tbody>
       </table>
     </div>
-    <h4 style="margin:22px 0 10px;font-weight:700;color:var(--navy)">二、逐维度分项评分</h4>
+    <h4 style="margin:22px 0 10px;font-weight:700;color:var(--navy)">二、评分明细表（逐小项得分点/扣分点）</h4>
     ${subTables}
     <div class="card" style="margin-bottom:14px"><h4>三、核心亮点</h4><ul class="ai-list">${li(d.highlights)}</ul></div>
     <div class="card" style="margin-bottom:14px"><h4>四、关键不足</h4><ul class="ai-list">${li(d.weaknesses)}</ul></div>
