@@ -423,7 +423,8 @@
       <div style="font-size:13px;color:var(--text-2)" id="report-title">—</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn btn-line" onclick="go('ai')" style="padding:10px 18px">← 返回打分</button>
-        <button class="btn btn-blue" onclick="exportDocx()" id="report-export-btn" style="padding:10px 18px">📄 导出 Word 报告</button>
+        <button class="btn btn-blue" onclick="exportDocx()" id="report-export-btn" style="padding:10px 18px">📄 导出评审报告</button>
+        <button class="btn btn-line" onclick="exportSheet()" id="sheet-export-btn" style="padding:10px 18px">📋 导出评分明细表</button>
       </div>
     </div>
     <div id="report-body"></div>
@@ -980,7 +981,7 @@ async function exportDocx(){
   if(!saved){ alert('暂无评审结果，请先完成一次 AI 打分'); return; }
   const btn = document.getElementById('report-export-btn');
   const old = btn ? btn.textContent : '';
-  if(btn){ btn.disabled = true; btn.textContent = '正在生成 Word…'; }
+  if(btn){ btn.disabled = true; btn.textContent = '正在生成…'; }
   try{
     const resp = await fetch(API_BASE + '/api/export_docx', {
       method: 'POST',
@@ -995,6 +996,36 @@ async function exportDocx(){
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = saved.title + '_创新竞赛评审报告.docx';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }catch(e){
+    alert('导出失败：' + (e.message || String(e)));
+  }finally{
+    if(btn){ btn.disabled = false; btn.textContent = old; }
+  }
+}
+
+async function exportSheet(){
+  const saved = getSavedReport();
+  if(!saved){ alert('暂无评审结果，请先完成一次 AI 打分'); return; }
+  const btn = document.getElementById('sheet-export-btn');
+  const old = btn ? btn.textContent : '';
+  if(btn){ btn.disabled = true; btn.textContent = '正在生成…'; }
+  try{
+    const resp = await fetch(API_BASE + '/api/export_sheet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: saved.title, track: saved.track, material: saved.material || 'bp', result: saved.result }),
+    });
+    if(!resp.ok){
+      const j = await resp.json().catch(()=>({}));
+      throw new Error((j && j.detail) || ('HTTP ' + resp.status));
+    }
+    const blob = await resp.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = saved.title + '_评分明细表.docx';
     document.body.appendChild(a);
     a.click();
     setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
