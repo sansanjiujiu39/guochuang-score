@@ -353,6 +353,116 @@
     .banner-in{padding:56px 0 64px}
   }
 
+
+  /* ═══════════════ 高级商务升级 · 明鉴自评（2026-08-29） ═══════════════ */
+  :root{
+    --navy:#0e2244;          /* 深藏青：品牌主色 */
+    --navy-2:#14305f;
+    --gold:#b8914f;          /* 香槟金：点缀色 */
+    --gold-light:#d4b476;
+    --ink:#232c42;           /* 正文 */
+    --ink-2:#5c6a8a;         /* 次级文字 */
+    --ink-3:#8fa0c0;
+    --line:#e4e9f2;          /* 细边框 */
+    --bg:#f6f8fb;            /* 页面背景 */
+  }
+  body{background:var(--bg);color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.2px;text-rendering:optimizeLegibility}
+
+  /* ── 导航：更薄、更克制 ── */
+  .mainnav{background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(14,34,68,.03),0 4px 24px rgba(14,34,68,.05)}
+  .brand .name{background:linear-gradient(120deg,#0e2244,#1450c9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .brand .logo{background:linear-gradient(135deg,#0e2244,#1450c9);box-shadow:0 3px 10px rgba(14,34,68,.22)}
+  .nav-links a{color:var(--ink-2);font-weight:500;letter-spacing:.6px}
+  .nav-links a:hover{color:var(--navy);background:#f1f5fb}
+  .nav-links a.active{background:var(--navy);box-shadow:0 4px 14px rgba(14,34,68,.28);color:#fff}
+  .nav-right .btn-about{color:var(--navy);border-color:#cdd6e6}
+
+  /* ── Hero：暗色克制渐变 + 网格纹理 + 金色光晕 ── */
+  .banner{background:radial-gradient(1100px 480px at 88% -12%,rgba(212,180,118,.18),transparent 58%),radial-gradient(900px 460px at -8% 112%,rgba(70,116,190,.38),transparent 55%),linear-gradient(135deg,#0a1c3e 0%,#0e2244 48%,#14305f 100%)}
+  .banner::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:46px 46px;-webkit-mask-image:radial-gradient(1000px 520px at 50% 0%,#000 25%,transparent 72%);mask-image:radial-gradient(1000px 520px at 50% 0%,#000 25%,transparent 72%);pointer-events:none}
+  .banner-in{position:relative;z-index:1}
+  .banner h1{color:#fff;font-weight:700;letter-spacing:4px;text-shadow:0 2px 30px rgba(0,8,30,.45)}
+  .banner h1 .gold{color:var(--gold-light);text-shadow:0 0 36px rgba(212,180,118,.4)}
+  .banner p{color:rgba(255,255,255,.82);letter-spacing:.6px}
+  .banner-stats .s b{color:#fff;font-weight:700}
+  .banner-stats .s span{color:rgba(255,255,255,.70);letter-spacing:1.5px;font-size:12.5px}
+  .banner-stats .s{border-left-color:rgba(255,255,255,.14)}
+  .banner-badge{background:rgba(212,180,118,.12);border-color:rgba(212,180,118,.4);color:var(--gold-light);letter-spacing:1px;backdrop-filter:blur(6px)}
+
+  /* ── 标题系统：金色细线 ── */
+  .sec-head h2{font-weight:700;letter-spacing:1.5px;color:var(--navy)}
+  .sec-head .line{width:42px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:0}
+  .sec-head p{color:var(--ink-2);letter-spacing:.4px}
+
+  /* ── 卡片：细边框 + 极轻阴影，悬浮克制的浮起 ── */
+  .card,.quick-card,.track-card,.rule-card,.panel,.ai-score-overview,.post-list{border:1px solid var(--line);box-shadow:0 2px 14px rgba(14,34,68,.05);transition:all .25s cubic-bezier(.22,.61,.36,1)}
+  .card:hover{border-color:#c9d4e8;box-shadow:0 8px 26px rgba(14,34,68,.08)}
+  .quick-card:hover,.track-card:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(14,34,68,.10);border-color:#b9c8e2}
+  .quick-card h3,.track-card h3{color:var(--navy);letter-spacing:.5px}
+  .quick-card p,.track-card p{color:var(--ink-2)}
+  .quick-card .ic,.track-card .t-icon{color:var(--navy)}
+  .track-card .t-icon{background:linear-gradient(135deg,#0e2244,#1450c9);box-shadow:0 4px 12px rgba(14,34,68,.20)}
+  .rule-card .n{background:linear-gradient(135deg,var(--gold),#c9a86a);box-shadow:0 3px 10px rgba(184,145,79,.30)}
+  .rule-card h3{color:var(--navy)}
+
+  /* ── 按钮：克制的深色 / 金色 ── */
+  .btn-blue{background:linear-gradient(135deg,#0e2244,#14305f);box-shadow:0 3px 12px rgba(14,34,68,.22)}
+  .btn-blue:hover{background:linear-gradient(135deg,#0a1a38,#0e2244);box-shadow:0 6px 18px rgba(14,34,68,.30);transform:translateY(-1px)}
+  .btn-gold{background:linear-gradient(135deg,#c9a86a,#b8914f);color:#fff;box-shadow:0 3px 12px rgba(184,145,79,.32)}
+  .btn-gold:hover{background:linear-gradient(135deg,#d4b476,#c49a55);box-shadow:0 6px 18px rgba(184,145,79,.40);transform:translateY(-1px)}
+  .btn-line{border-color:#cdd6e6;color:var(--navy)}
+  .btn-line:hover{border-color:var(--navy);color:var(--navy);background:#f4f7fc}
+
+  /* ── 表格：专业表头、斑马行、细分隔 ── */
+  table.rubric{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  table.rubric th{background:#f0f4fa;color:var(--navy);font-weight:600;letter-spacing:.8px;border-bottom:1px solid var(--line)}
+  table.rubric td{border-bottom:1px solid #eef2f9;color:var(--ink)}
+  table.rubric tr:nth-child(even) td{background:#fafbfe}
+  table.rubric tr:hover td{background:#f3f7fd}
+  table.rubric .score{color:var(--navy);font-weight:600}
+
+  /* ── 打分区：得分卡更精致 ── */
+  .ai-score-overview{background:linear-gradient(180deg,#fbfcfe,#f4f7fc);border-radius:16px}
+  .ai-total .num{background:linear-gradient(120deg,#0e2244,#1450c9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+  .ai-total .lab{color:var(--ink-2);letter-spacing:1px}
+  .ai-level{background:rgba(184,145,79,.12);color:#8a6a35;border:1px solid rgba(184,145,79,.35);letter-spacing:.5px}
+  .track .fill{background:linear-gradient(90deg,#1450c9,#4a7bf0)}
+  .upload-zone{background:linear-gradient(180deg,#fbfcfe,#f2f6fc);border:1.5px dashed #c3d0e6;border-radius:16px}
+  .upload-zone:hover{border-color:var(--gold);background:linear-gradient(180deg,#fdfdff,#f6f3ec)}
+
+  /* ── 面板 / 论坛 / 页脚 ── */
+  .panel-head{background:linear-gradient(180deg,#f6f8fc,#eef2f9);border-bottom:1px solid var(--line)}
+  .post-avatar{background:linear-gradient(135deg,#0e2244,#1450c9)}
+  .f-tab.active{color:var(--navy);border-bottom-color:var(--gold)}
+  footer{background:linear-gradient(180deg,#0e2244,#0a1832)}
+  footer h4{color:#fff;letter-spacing:2px;font-weight:600}
+  footer a{color:rgba(255,255,255,.72);letter-spacing:.4px}
+  footer a:hover{color:var(--gold-light)}
+  .footer-bottom{color:rgba(255,255,255,.5);border-top-color:rgba(255,255,255,.08);letter-spacing:.5px}
+
+  /* ── 页内横幅统一深藏青 ── */
+  .page-banner{background:linear-gradient(120deg,#0e2244,#13315c 55%,#1a3a6e)}
+  .page-banner-in h2{color:#fff;letter-spacing:2px}
+  .page-banner-in p{color:rgba(255,255,255,.75)}
+
+  /* ── 报告页 / 内容页标题层级 ── */
+  #page-report h3,#page-report h4,#page-guide .card h4,#page-privacy .card h4,#page-faq .card h4,
+  #page-competitions h3,#page-competitions h4,#page-apply h3,#page-apply-school h3,#page-apply-official h3,
+  #page-rules h3,#page-rules h4,#page-apply .card h3,#page-apply .card h4{color:var(--navy);letter-spacing:.5px}
+  #page-faq .card{border-left:3px solid var(--gold);transition:all .25s cubic-bezier(.22,.61,.36,1)}
+  #page-faq .card:hover{border-left-color:#c49a55;box-shadow:0 8px 26px rgba(14,34,68,.08)}
+
+  /* ── 滚动条与选中更雅致 ── */
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#c6d2e6;border-radius:6px;border:2px solid var(--bg)}
+  ::-webkit-scrollbar-thumb:hover{background:#a8bad9}
+  ::selection{background:rgba(184,145,79,.20)}
+
+  @media(max-width:900px){
+    .banner h1{font-size:30px;letter-spacing:2px}
+    .banner-stats .s b{font-size:26px}
+  }
+
 </style>
 </head>
 <body>
