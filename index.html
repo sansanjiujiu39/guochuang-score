@@ -1664,6 +1664,7 @@ async function runAiReview(){
     if(!j || !j.result){ throw new Error('后端返回数据格式异常'); }
     mjLastTrack = TRACK_KEYS[trackIdx];
     mjTruncInfo = (j.truncated && j.input_chars) ? {input: j.input_chars, used: j.used_chars||0} : null;
+    mjSegInfo = (j.segmented && j.segments) ? j.segments : 0;
     renderAiResult(j.result);
   } catch(e) {
     showAiError('评审失败：' + (e.message || String(e)));
@@ -1678,10 +1679,13 @@ async function runAiReview(){
 let mjLastTrack = '';
 // 当前评审的截断信息（供结果页提示）
 let mjTruncInfo = null;
+// 当前评审的分段信息（超长文档分段评审段数）
+let mjSegInfo = 0;
 
 function renderAiResult(d){
   const num = v => (v===undefined||v===null||isNaN(v)) ? 0 : Math.round(Number(v)*100)/100;
   const truncBar = mjTruncInfo ? `<div style="background:#fff7e8;border:1px solid #f0c36d;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#8a6a35;margin-bottom:14px;line-height:1.7">⚠️ 原文约 <b>${mjTruncInfo.input.toLocaleString()}</b> 字，本次评审使用 <b>${mjTruncInfo.used.toLocaleString()}</b> 字（超长部分已按「保头保尾」截断，财务/团队等文末内容仍完整保留）。建议精简文档后重新评审，效果更佳。</div>` : '';
+  const segBar = mjSegInfo ? `<div style="background:#e8f4ee;border:1px solid #9fe1cb;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#0f6e56;margin-bottom:14px;line-height:1.7">🔍 超长文档已按<b>分段精读 + 汇总评审</b>模式处理（共 <b>${mjSegInfo}</b> 段），全文信息均已提取评审，无内容丢失。</div>` : '';
   const str = v => (v==null||v==='') ? '—' : String(v);
   const dims = Array.isArray(d.dims) ? d.dims : [];
 
@@ -1704,7 +1708,7 @@ function renderAiResult(d){
 
   // 打分页只展示「简洁得分卡」
   document.getElementById('ai-result-body').innerHTML = `
-    ${truncBar}
+    ${truncBar}${segBar}
     <div class="ai-score-overview">
       <div class="ai-total">
         <div class="num">${num(d.total)}</div>
