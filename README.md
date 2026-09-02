@@ -46,5 +46,4 @@
 - **在线访问**：<https://sansanjiujiu39.github.io/guochuang-score/>
 - **后端仓库**：<https://github.com/sansanjiujiu39/ai-review-backend>
 
-> ⚠️ 安全提示：历史版本曾将 DeepSeek API Key 硬编码于前端并公开，已彻底移除。
-> 若你 fork 使用，请务必把密钥放在后端环境变量，切勿写入前端代码。
+
