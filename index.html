@@ -1374,16 +1374,16 @@
 <script>
 // ═══ 10 个赛道数据（维度名 + 权重，用于首页展示） ═══
 const tracks = [
-  {group:"高教主赛道", name:"创意组", full:"高教主赛道 · 创意组", dims:[["个人成长",30],["项目创新",30],["产业价值",25],["团队协作",15]]},
-  {group:"高教主赛道", name:"创业组", full:"高教主赛道 · 创业组", dims:[["个人成长",25],["项目创新",30],["产业价值",30],["团队协作",15]]},
-  {group:"红旅赛道", name:"公益组", full:"青年红色筑梦之旅赛道 · 公益组", req:"必要条件：参加红旅活动", dims:[["个人成长",30],["公益价值",10],["项目创新",20],["发展前景",20],["团队协作",20]]},
-  {group:"红旅赛道", name:"创意组", full:"青年红色筑梦之旅赛道 · 创意组", req:"必要条件：参加红旅活动", dims:[["个人成长",30],["项目创新",30],["发展前景",20],["团队协作",20]]},
-  {group:"红旅赛道", name:"创业组", full:"青年红色筑梦之旅赛道 · 创业组", req:"必要条件：参加红旅活动", dims:[["个人成长",25],["项目创新",30],["发展前景",25],["团队协作",20]]},
-  {group:"职教赛道", name:"创意组", full:"职教赛道 · 创意组", dims:[["个人成长",30],["项目创新",30],["产业价值",25],["团队协作",15]]},
-  {group:"职教赛道", name:"创业组", full:"职教赛道 · 创业组", dims:[["个人成长",25],["项目创新",30],["产业价值",30],["团队协作",15]]},
-  {group:"产业赛道", name:"企业命题组", full:"产业赛道 · 企业命题组", dims:[["个人成长",30],["项目创新",20],["团队协作",20],["实现成效",20],["项目分析",10]]},
-  {group:"产业赛道", name:"成果转化组", full:"产业赛道 · 成果转化组", dims:[["个人成长",25],["项目创新",30],["产业价值",30],["团队协作",15]]},
-  {group:"萌芽赛道", name:"萌芽赛道", full:"萌芽赛道", dims:[["创新性",40],["实践性",20],["自主性",20],["团队情况",20]]},
+  {key:"gaojiao_chuangyi", group:"高教主赛道", name:"创意组", full:"高教主赛道 · 创意组", dims:[["个人成长",30],["项目创新",30],["产业价值",25],["团队协作",15]]},
+  {key:"gaojiao_chuangye", group:"高教主赛道", name:"创业组", full:"高教主赛道 · 创业组", dims:[["个人成长",25],["项目创新",30],["产业价值",30],["团队协作",15]]},
+  {key:"honglv_gongyi", group:"红旅赛道", name:"公益组", full:"青年红色筑梦之旅赛道 · 公益组", req:"必要条件：参加红旅活动", dims:[["个人成长",30],["公益价值",10],["项目创新",20],["发展前景",20],["团队协作",20]]},
+  {key:"honglv_chuangyi", group:"红旅赛道", name:"创意组", full:"青年红色筑梦之旅赛道 · 创意组", req:"必要条件：参加红旅活动", dims:[["个人成长",30],["项目创新",30],["发展前景",20],["团队协作",20]]},
+  {key:"honglv_chuangye", group:"红旅赛道", name:"创业组", full:"青年红色筑梦之旅赛道 · 创业组", req:"必要条件：参加红旅活动", dims:[["个人成长",25],["项目创新",30],["发展前景",25],["团队协作",20]]},
+  {key:"zhijiao_chuangyi", group:"职教赛道", name:"创意组", full:"职教赛道 · 创意组", dims:[["个人成长",30],["项目创新",30],["产业价值",25],["团队协作",15]]},
+  {key:"zhijiao_chuangye", group:"职教赛道", name:"创业组", full:"职教赛道 · 创业组", dims:[["个人成长",25],["项目创新",30],["产业价值",30],["团队协作",15]]},
+  {key:"chanye_qimingti", group:"产业赛道", name:"企业命题组", full:"产业赛道 · 企业命题组", dims:[["个人成长",30],["项目创新",20],["团队协作",20],["实现成效",20],["项目分析",10]]},
+  {key:"chanye_chengguo", group:"产业赛道", name:"成果转化组", full:"产业赛道 · 成果转化组", dims:[["个人成长",25],["项目创新",30],["产业价值",30],["团队协作",15]]},
+  {key:"mengya", group:"萌芽赛道", name:"萌芽赛道", full:"萌芽赛道", dims:[["创新性",40],["实践性",20],["自主性",20],["团队情况",20]]},
 ];
 
 // ═══ 完整评分细则数据（维度→一级子维度→二级子维度，字段：n名 w权 g一级子维度 s分 i二级子维度 c评分标准） ═══
@@ -1404,10 +1404,38 @@ function go(view){
 const API_BASE = localStorage.getItem('mj_api_base') || 'https://ai-review-backend-pearl.vercel.app';
 
 // 10 个赛道的 key（顺序与 tracks 数组一致，提交给后端）
-const TRACK_KEYS = [
-  'gaojiao_chuangyi','gaojiao_chuangye','honglv_gongyi','honglv_chuangyi','honglv_chuangye',
-  'zhijiao_chuangyi','zhijiao_chuangye','chanye_qimingti','chanye_chengguo','mengya'
-];
+const TRACK_KEYS = tracks.map(t=>t.key);
+
+const esc = v => (v===undefined||v===null) ? '' : String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtNum = v => (v===undefined||v===null||isNaN(v)) ? 0 : Math.round(Number(v)*100)/100;
+const fmtStr = v => (v==null||v==='') ? '—' : esc(v);
+
+function renderDimBars(dims){
+  return (Array.isArray(dims)?dims:[]).map(dim=>{
+    const full = fmtNum(dim.full)||1;
+    const score = fmtNum(dim.score);
+    const pct = Math.min(100, Math.round(score/full*100));
+    return `<div class="dim-bar">
+      <div class="dl"><span>${fmtStr(dim.name)}（${full}分）</span><span>${score} / ${full}</span></div>
+      <div class="track"><div class="fill ${pct<70?'warn':''}" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+async function apiPost(path, payload, timeoutMs){
+  const ctrl = new AbortController();
+  const timer = setTimeout(()=>ctrl.abort(), timeoutMs || 90000);
+  try{
+    return await fetch(API_BASE + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: ctrl.signal
+    });
+  }finally{
+    clearTimeout(timer);
+  }
+}
 
 function buildAiTrackOptions(){
   const sel = document.getElementById('ai-track');
@@ -1420,7 +1448,7 @@ let aiText = '';   // 提取的计划书文本
 let lastFile = null;  // 最近上传的文件（OCR 用）
 let ocrAutoTriggered = false;  // 当前文件是否已自动触发过 OCR
 
-function handleUploadFile(file){
+async function handleUploadFile(file){
   const status = document.getElementById('upload-status');
   if(!file) return;
   const ext = (file.name.split('.').pop()||'').toLowerCase();
@@ -1429,12 +1457,31 @@ function handleUploadFile(file){
   ocrAutoTriggered = false;
   if(ext === 'pdf'){
     lastFile = file;
-    status.textContent = '正在解析 PDF，请稍候…';
-    parsePdfText(file).then(txt=>fillUploadText(txt,status)).catch(e=>{status.style.color='#c62828';status.textContent='PDF 解析失败：'+(e.message||e);showOcrOption();});
+    status.textContent = '正在加载 PDF 解析组件，请稍候…';
+    try{
+      const ok = await ensurePdfLib();
+      if(!ok) throw new Error('PDF 解析库加载失败，请检查网络后刷新重试');
+      status.textContent = '正在解析 PDF，请稍候…';
+      const txt = await parsePdfText(file);
+      fillUploadText(txt,status);
+    }catch(e){
+      status.style.color = '#c62828';
+      status.textContent = 'PDF 解析失败：' + (e.message || e);
+      showOcrOption();
+    }
   } else if(ext === 'docx'){
     lastFile = file;
-    status.textContent = '正在解析 Word 文档，请稍候…';
-    parseDocxText(file).then(txt=>fillUploadText(txt,status)).catch(e=>{status.style.color='#c62828';status.textContent='Word 解析失败：'+(e.message||e);});
+    status.textContent = '正在加载 Word 解析组件，请稍候…';
+    try{
+      const ok = await ensureDocxLib();
+      if(!ok) throw new Error('Word 解析库加载失败，请检查网络后刷新重试');
+      status.textContent = '正在解析 Word 文档，请稍候…';
+      const txt = await parseDocxText(file);
+      fillUploadText(txt,status);
+    }catch(e){
+      status.style.color = '#c62828';
+      status.textContent = 'Word 解析失败：' + (e.message || e);
+    }
   } else if(ext === 'doc'){
     status.style.color = '#c62828';
     status.textContent = '不支持旧版 .doc：请用 Word 打开后「另存为 .docx 或 PDF」再拖入';
@@ -1588,40 +1635,57 @@ async function parseDocxText(file){
   }
 })();
 
-// ═══ 解析库 CDN 加载（多源回退） ═══
-(function loadLibs(){
-  const pdfCandidates = [
-    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
-    'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js'
-  ];
-  const workerCandidates = [
-    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',
-    'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'
-  ];
-  const mammothCandidates = [
-    'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js',
-    'https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js'
-  ];
-  function tryLoad(list, done){
+// ═══ 解析库 CDN 加载（懒加载 + 多源回退） ═══
+const pdfCandidates = [
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
+  'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js'
+];
+const workerCandidates = [
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',
+  'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'
+];
+const mammothCandidates = [
+  'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js',
+  'https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js'
+];
+const loadedLibs = { pdf:false, worker:false, docx:false };
+
+function loadFirstScript(urls){
+  return new Promise(resolve=>{
     let i = 0;
     (function next(){
-      if(i >= list.length){ done(false); return; }
+      if(i >= urls.length){ resolve(null); return; }
       const s = document.createElement('script');
-      s.src = list[i++];
-      s.onload = ()=>{ done(true); };
+      s.src = urls[i++];
+      s.onload = ()=>resolve(s.src);
       s.onerror = next;
       document.head.appendChild(s);
     })();
-  }
-  tryLoad(pdfCandidates, ok=>{
-    if(ok && window.pdfjsLib){
-      tryLoad(workerCandidates, wok=>{
-        if(wok) pdfjsLib.GlobalWorkerOptions.workerSrc = workerCandidates[0];
-      });
-    }
   });
-  tryLoad(mammothCandidates, ()=>{});
-})();
+}
+
+async function ensurePdfLib(){
+  if(loadedLibs.pdf && window.pdfjsLib) return true;
+  const libSrc = await loadFirstScript(pdfCandidates);
+  if(!libSrc || !window.pdfjsLib) return false;
+  loadedLibs.pdf = true;
+  if(!loadedLibs.worker){
+    const workerSrc = await loadFirstScript(workerCandidates);
+    if(workerSrc){
+      loadedLibs.worker = true;
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
+    }
+  }
+  return true;
+}
+
+async function ensureDocxLib(){
+  if(loadedLibs.docx && window.mammoth) return true;
+  const src = await loadFirstScript(mammothCandidates);
+  if(!src || !window.mammoth) return false;
+  loadedLibs.docx = true;
+  return true;
+}
 
 function showAiError(msg){
   const el = document.getElementById('ai-error');
@@ -1647,15 +1711,11 @@ async function runAiReview(){
   btn.textContent = '评审中…';
 
   try {
-    const resp = await fetch(API_BASE + '/api/review', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        track: TRACK_KEYS[trackIdx],
-        text: text,
-        material: 'bp',
-      }),
-    });
+    const resp = await apiPost('/api/review', {
+      track: TRACK_KEYS[trackIdx],
+      text: text,
+      material: 'bp',
+    }, 120000);
 
     const j = await resp.json();
     if(!resp.ok){
@@ -1667,7 +1727,8 @@ async function runAiReview(){
     mjSegInfo = (j.segmented && j.segments) ? j.segments : 0;
     renderAiResult(j.result);
   } catch(e) {
-    showAiError('评审失败：' + (e.message || String(e)));
+    const msg = (e && e.name === 'AbortError') ? '请求超时，请稍后重试' : (e.message || String(e));
+    showAiError('评审失败：' + msg);
   } finally {
     loadEl.style.display = 'none';
     btn.disabled = false;
@@ -1683,20 +1744,11 @@ let mjTruncInfo = null;
 let mjSegInfo = 0;
 
 function renderAiResult(d){
-  const num = v => (v===undefined||v===null||isNaN(v)) ? 0 : Math.round(Number(v)*100)/100;
   const truncBar = mjTruncInfo ? `<div style="background:#fff7e8;border:1px solid #f0c36d;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#8a6a35;margin-bottom:14px;line-height:1.7">⚠️ 原文约 <b>${mjTruncInfo.input.toLocaleString()}</b> 字，本次评审使用 <b>${mjTruncInfo.used.toLocaleString()}</b> 字（超长部分已按「保头保尾」截断，财务/团队等文末内容仍完整保留）。建议精简文档后重新评审，效果更佳。</div>` : '';
   const segBar = mjSegInfo ? `<div style="background:#e8f4ee;border:1px solid #9fe1cb;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#0f6e56;margin-bottom:14px;line-height:1.7">🔍 超长文档已按<b>分段精读 + 汇总评审</b>模式处理（共 <b>${mjSegInfo}</b> 段），全文信息均已提取评审，无内容丢失。</div>` : '';
-  const str = v => (v==null||v==='') ? '—' : String(v);
+  const num = fmtNum, str = fmtStr;
   const dims = Array.isArray(d.dims) ? d.dims : [];
-
-  const dimsBars = dims.map(dim=>{
-    const full = num(dim.full)||1, score = num(dim.score);
-    const pct = Math.min(100, Math.round(score/full*100));
-    return `<div class="dim-bar">
-      <div class="dl"><span>${str(dim.name)}（${full}分）</span><span>${score} / ${full}</span></div>
-      <div class="track"><div class="fill ${pct<70?'warn':''}" style="width:${pct}%"></div></div>
-    </div>`;
-  }).join('');
+  const dimsBars = renderDimBars(dims);
 
   // 保存完整结果（供独立报告页与 Word 导出）
   const title = (lastFile && lastFile.name) ? lastFile.name.replace(/\.[^.]+$/, '') : '创新作品';
@@ -1739,8 +1791,7 @@ function getSavedReport(){
 
 function buildReportHtml(saved){
   const d = saved.result;
-  const num = v => (v===undefined||v===null||isNaN(v)) ? 0 : Math.round(Number(v)*100)/100;
-  const str = v => (v==null||v==='') ? '—' : String(v);
+  const num = fmtNum, str = fmtStr;
   const dims = Array.isArray(d.dims) ? d.dims : [];
 
   const overviewRows = dims.map(dim=>'<tr><td>'+str(dim.name)+'</td><td class="score">'+num(dim.full)+'</td><td class="score">'+num(dim.score)+'</td><td>'+str(dim.diagnosis)+'</td></tr>').join('');
@@ -1755,7 +1806,7 @@ function buildReportHtml(saved){
   }).join('');
 
   const li = arr => (Array.isArray(arr)?arr:[]).map(x=>'<li>'+str(x)+'</li>').join('');
-  const sug = (Array.isArray(d.suggestions)?d.suggestions:[]).map(s=>'<li><b>优先级'+(s.priority||'—')+'：</b>'+str(s.text)+'</li>').join('');
+  const sug = (Array.isArray(d.suggestions)?d.suggestions:[]).map(s=>'<li><b>优先级'+fmtStr(s.priority||'—')+'：</b>'+str(s.text)+'</li>').join('');
 
   return `
     <div class="ai-score-overview" style="margin-bottom:20px">
@@ -1765,11 +1816,7 @@ function buildReportHtml(saved){
         <div class="ai-level">${str(d.level)}（${str(d.level_range)}）</div>
         ${(d.work_score!=null) ? '<div style="font-size:12px;color:var(--text-3);margin-top:4px">作品水平分 ' + num(d.work_score) + '</div>' : ''}
       </div>
-      <div class="ai-dims">${dims.map(dim=>{
-        const full = num(dim.full)||1, score = num(dim.score);
-        const pct = Math.min(100, Math.round(score/full*100));
-        return '<div class="dim-bar"><div class="dl"><span>'+str(dim.name)+'（'+full+'分）</span><span>'+score+' / '+full+'</span></div><div class="track"><div class="fill '+(pct<70?'warn':'')+'" style="width:'+pct+'%"></div></div></div>';
-      }).join('')}</div>
+      <div class="ai-dims">${renderDimBars(dims)}</div>
     </div>
     <div class="card" style="margin-bottom:14px">
       <h4>总评结论</h4>
@@ -1816,18 +1863,16 @@ function showReport(){
   go('report');
 }
 
-async function exportDocx(){
+async function downloadReportFile(endpoint, fileSuffix, btnId){
   const saved = getSavedReport();
   if(!saved){ alert('暂无评审结果，请先完成一次 AI 打分'); return; }
-  const btn = document.getElementById('report-export-btn');
+  const btn = btnId ? document.getElementById(btnId) : null;
   const old = btn ? btn.textContent : '';
   if(btn){ btn.disabled = true; btn.textContent = '正在生成…'; }
   try{
-    const resp = await fetch(API_BASE + '/api/export_docx', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: saved.title, track: saved.track, material: saved.material || 'bp', result: saved.result }),
-    });
+    const resp = await apiPost(endpoint, {
+      title: saved.title, track: saved.track, material: saved.material || 'bp', result: saved.result
+    }, 60000);
     if(!resp.ok){
       const j = await resp.json().catch(()=>({}));
       throw new Error((j && j.detail) || ('HTTP ' + resp.status));
@@ -1835,45 +1880,24 @@ async function exportDocx(){
     const blob = await resp.blob();
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = saved.title + '_创新竞赛评审报告.docx';
+    a.download = saved.title + fileSuffix;
     document.body.appendChild(a);
     a.click();
     setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
   }catch(e){
-    alert('导出失败：' + (e.message || String(e)));
+    const msg = (e && e.name === 'AbortError') ? '导出超时，请稍后重试' : (e.message || String(e));
+    alert('导出失败：' + msg);
   }finally{
     if(btn){ btn.disabled = false; btn.textContent = old; }
   }
 }
 
-async function exportSheet(){
-  const saved = getSavedReport();
-  if(!saved){ alert('暂无评审结果，请先完成一次 AI 打分'); return; }
-  const btn = document.getElementById('sheet-export-btn');
-  const old = btn ? btn.textContent : '';
-  if(btn){ btn.disabled = true; btn.textContent = '正在生成…'; }
-  try{
-    const resp = await fetch(API_BASE + '/api/export_sheet', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: saved.title, track: saved.track, material: saved.material || 'bp', result: saved.result }),
-    });
-    if(!resp.ok){
-      const j = await resp.json().catch(()=>({}));
-      throw new Error((j && j.detail) || ('HTTP ' + resp.status));
-    }
-    const blob = await resp.blob();
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = saved.title + '_评分明细表.docx';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
-  }catch(e){
-    alert('导出失败：' + (e.message || String(e)));
-  }finally{
-    if(btn){ btn.disabled = false; btn.textContent = old; }
-  }
+function exportDocx(){
+  return downloadReportFile('/api/export_docx', '_创新竞赛评审报告.docx', 'report-export-btn');
+}
+
+function exportSheet(){
+  return downloadReportFile('/api/export_sheet', '_评分明细表.docx', 'sheet-export-btn');
 }
 
 // ═══ 论坛社区 · 示例数据（静态演示版） ═══
@@ -1945,7 +1969,7 @@ function renderForum(cat){
   forumCat = cat;
   const list = document.getElementById('forum-posts');
   const posts = cat === '全部' ? FORUM_POSTS : FORUM_POSTS.filter(p=>p.cat===cat);
-  document.getElementById('forum-count').textContent = '共 ' + FORUM_POSTS.length + ' 个帖子';
+  document.getElementById('forum-count').textContent = '共 ' + posts.length + ' 个帖子';
   if(!posts.length){
     list.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-3);font-size:14px">该板块暂无示例帖子</div>';
     return;
@@ -2024,7 +2048,6 @@ document.querySelectorAll('.sidebar-card .li[data-cat]').forEach(li=>{
 document.getElementById('forum-publish').addEventListener('click',()=>{
   alert('当前为示例演示版，发布功能即将上线，敬请期待');
 });
-// 初始化渲染
 // 初始化渲染
 renderForum('全部');
 
